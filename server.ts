@@ -395,7 +395,7 @@ async function startServer() {
               scriptSrc: ["'self'"],
               styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
               fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-              imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com"],
+              imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com", "https://flagcdn.com"],
               connectSrc: ["'self'"],
               objectSrc: ["'none'"],
               frameAncestors: ["'self'"],
