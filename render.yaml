@@ -1,0 +1,22 @@
+# Render Blueprint — Dr Ilhom Dental Clinic
+# Dashboard: New + -> Blueprint -> shu repo -> Apply
+services:
+  - type: web
+    name: ilhomdent-clinic
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3000"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: APP_URL
+        sync: false

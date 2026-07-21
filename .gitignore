@@ -1,0 +1,18 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+
+# Secrets — never commit
+.env*
+!.env.example
+
+# Runtime data (database, backups, logs, user uploads)
+data/
+backups/
+logs/
+public/uploads/
+site_data_store.json
+site_data_store.json.imported.bak

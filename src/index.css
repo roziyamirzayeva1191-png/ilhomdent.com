@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0F172A;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #33B6FF;
+}
+
+/* Luxury visual effects */
+.glow-blue {
+  box-shadow: 0 0 40px -5px rgba(11, 95, 255, 0.25);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 40px -5px rgba(0, 212, 255, 0.2);
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glassmorphism-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glassmorphism-dark {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.06); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.06); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+.neon-shadow-blue {
+  box-shadow: 0 4px 12px rgba(11, 95, 255, 0.1), 0 0 18px rgba(11, 95, 255, 0.4);
+}
+
+.neon-shadow-green {
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1), 0 0 18px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================
+   ADMIN PORTAL BLACK & YELLOW THEME
+   ========================================== */
+.admin-theme-yellow-black {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  color: #fefce8 !important;
+}
+
+/* Base text elements */
+.admin-theme-yellow-black h2,
+.admin-theme-yellow-black h3,
+.admin-theme-yellow-black h4,
+.admin-theme-yellow-black h5,
+.admin-theme-yellow-black h6,
+.admin-theme-yellow-black p,
+.admin-theme-yellow-black span,
+.admin-theme-yellow-black div,
+.admin-theme-yellow-black label,
+.admin-theme-yellow-black td,
+.admin-theme-yellow-black th,
+.admin-theme-yellow-black input,
+.admin-theme-yellow-black textarea,
+.admin-theme-yellow-black select,
+.admin-theme-yellow-black strong,
+.admin-theme-yellow-black small,
+.admin-theme-yellow-black a {
+  color: #fefce8 !important; /* Lighter/whitish yellow-50 */
+}
+
+/* Secondary darker yellow text for subtitles, timestamps, metadata */
+.admin-theme-yellow-black .text-slate-500,
+.admin-theme-yellow-black .text-slate-400,
+.admin-theme-yellow-black .text-gray-500,
+.admin-theme-yellow-black .text-gray-400,
+.admin-theme-yellow-black p.text-xs,
+.admin-theme-yellow-black .text-\[10px\],
+.admin-theme-yellow-black .font-normal {
+  color: #fde047 !important; /* Brighter medium yellow-300 for secondary elements */
+}
+
+/* Darker backgrounds for layout structures */
+.admin-theme-yellow-black .bg-white,
+.admin-theme-yellow-black .bg-slate-50,
+.admin-theme-yellow-black .bg-slate-50\/50,
+.admin-theme-yellow-black .bg-slate-50\/30,
+.admin-theme-yellow-black .bg-slate-100,
+.admin-theme-yellow-black .bg-slate-100\/80,
+.admin-theme-yellow-black .bg-slate-200,
+.admin-theme-yellow-black .bg-gray-50,
+.admin-theme-yellow-black .bg-gray-100,
+.admin-theme-yellow-black .bg-slate-50\/20 {
+  background-color: #121212 !important; /* Dark Charcoal background */
+}
+
+/* Pure Black backgrounds for primary panels and outer cards */
+.admin-theme-yellow-black .max-w-md,
+.admin-theme-yellow-black .max-w-6xl,
+.admin-theme-yellow-black .bg-slate-950,
+.admin-theme-yellow-black .bg-slate-900 {
+  background-color: #000000 !important; /* Pure Black background */
+}
+
+/* Borders and Dividers */
+.admin-theme-yellow-black .border,
+.admin-theme-yellow-black .border-b,
+.admin-theme-yellow-black .border-t,
+.admin-theme-yellow-black .border-l,
+.admin-theme-yellow-black .border-r,
+.admin-theme-yellow-black .border-slate-100,
+.admin-theme-yellow-black .border-slate-150,
+.admin-theme-yellow-black .border-slate-200,
+.admin-theme-yellow-black .border-slate-300,
+.admin-theme-yellow-black .divide-y > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(254, 252, 232, 0.25) !important; /* Yellow-50 opacity */
+}
+
+/* Active Highlight Buttons & Primary UI elements */
+.admin-theme-yellow-black .bg-blue-600,
+.admin-theme-yellow-black .bg-blue-700,
+.admin-theme-yellow-black .bg-indigo-600,
+.admin-theme-yellow-black .bg-indigo-700,
+.admin-theme-yellow-black .bg-emerald-600,
+.admin-theme-yellow-black .bg-emerald-500,
+.admin-theme-yellow-black .bg-amber-500,
+.admin-theme-yellow-black .bg-amber-600,
+.admin-theme-yellow-black .bg-yellow-500,
+.admin-theme-yellow-black .bg-yellow-600 {
+  background-color: #fefce8 !important; /* Yellow-50 background */
+  color: #000000 !important; /* Pure black text */
+  border-color: #fefce8 !important;
+}
+
+.admin-theme-yellow-black .bg-blue-600 *,
+.admin-theme-yellow-black .bg-blue-700 *,
+.admin-theme-yellow-black .bg-yellow-500 *,
+.admin-theme-yellow-black .bg-yellow-600 * {
+  color: #000000 !important; /* Make inner text/icon black inside active yellow buttons */
+}
+
+/* Hover styles for active buttons */
+.admin-theme-yellow-black .bg-blue-600:hover,
+.admin-theme-yellow-black .bg-blue-700:hover,
+.admin-theme-yellow-black .bg-yellow-500:hover,
+.admin-theme-yellow-black .bg-yellow-600:hover {
+  background-color: #fef08a !important; /* Hover yellow-200 */
+  color: #000000 !important;
+}
+
+/* Active tabs styles */
+.admin-theme-yellow-black .border-blue-600 {
+  border-bottom-color: #fefce8 !important;
+  color: #fefce8 !important;
+}
+
+/* Form controls (Inputs, Textarea, Select) */
+.admin-theme-yellow-black input,
+.admin-theme-yellow-black textarea,
+.admin-theme-yellow-black select {
+  background-color: #000000 !important;
+  color: #fefce8 !important;
+  border: 1px solid rgba(254, 252, 232, 0.4) !important;
+}
+
+.admin-theme-yellow-black input:focus,
+.admin-theme-yellow-black textarea:focus,
+.admin-theme-yellow-black select:focus {
+  border-color: #fefce8 !important;
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(254, 252, 232, 0.2) !important;
+}
+
+.admin-theme-yellow-black input::placeholder,
+.admin-theme-yellow-black textarea::placeholder {
+  color: #ca8a04 !important; /* Amber placeholder */
+}
+
+/* Icon vectors (SVG) */
+.admin-theme-yellow-black svg {
+  stroke: #fefce8 !important;
+}
+.admin-theme-yellow-black .bg-blue-600 svg,
+.admin-theme-yellow-black .bg-blue-700 svg,
+.admin-theme-yellow-black .bg-yellow-500 svg,
+.admin-theme-yellow-black .bg-yellow-600 svg,
+.admin-theme-yellow-black button[type="submit"] svg {
+  stroke: #000000 !important;
+}
+
+/* Badges and tags */
+.admin-theme-yellow-black .bg-emerald-50,
+.admin-theme-yellow-black .bg-emerald-100,
+.admin-theme-yellow-black .bg-emerald-500\/10 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #10b981 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+.admin-theme-yellow-black .bg-emerald-50 *,
+.admin-theme-yellow-black .bg-emerald-100 * {
+  color: #10b981 !important;
+  stroke: #10b981 !important;
+}
+
+.admin-theme-yellow-black .bg-yellow-50,
+.admin-theme-yellow-black .bg-yellow-100,
+.admin-theme-yellow-black .bg-yellow-500\/10 {
+  background-color: rgba(254, 252, 232, 0.1) !important;
+  color: #fefce8 !important;
+  border: 1px solid rgba(254, 252, 232, 0.3) !important;
+}
+.admin-theme-yellow-black .bg-yellow-50 *,
+.admin-theme-yellow-black .bg-yellow-100 * {
+  color: #fefce8 !important;
+  stroke: #fefce8 !important;
+}
+
+.admin-theme-yellow-black .bg-rose-50,
+.admin-theme-yellow-black .bg-rose-100,
+.admin-theme-yellow-black .bg-rose-500\/10 {
+  background-color: rgba(244, 63, 94, 0.1) !important;
+  color: #f43f5e !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+.admin-theme-yellow-black .bg-rose-50 *,
+.admin-theme-yellow-black .bg-rose-100 * {
+  color: #f43f5e !important;
+  stroke: #f43f5e !important;
+}
+
+.admin-theme-yellow-black .bg-blue-50,
+.admin-theme-yellow-black .bg-blue-100,
+.admin-theme-yellow-black .bg-blue-500\/10 {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  color: #3b82f6 !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+.admin-theme-yellow-black .bg-blue-50 *,
+.admin-theme-yellow-black .bg-blue-100 * {
+  color: #3b82f6 !important;
+  stroke: #3b82f6 !important;
+}
+
+/* Modals, alerts, tables */
+.admin-theme-yellow-black table {
+  background-color: #000000 !important;
+}
+.admin-theme-yellow-black tr:hover {
+  background-color: rgba(254, 252, 232, 0.05) !important;
+}
+
+/* Scrollbar styling for admin modal */
+.admin-theme-yellow-black ::-webkit-scrollbar-track {
+  background: #000000 !important;
+}
+.admin-theme-yellow-black ::-webkit-scrollbar-thumb {
+  background: #262626 !important;
+  border: 2px solid #000000 !important;
+}
+.admin-theme-yellow-black ::-webkit-scrollbar-thumb:hover {
+  background: #fefce8 !important;
+}
+
+/* Inactive tabs text color */
+.admin-theme-yellow-black .text-slate-500:hover {
+  color: #fefce8 !important;
+}
+
+
