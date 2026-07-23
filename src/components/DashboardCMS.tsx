@@ -1009,7 +1009,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
             </form>
           )}
 
-          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400">
+          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-600">
             <span className="flex items-center gap-1">
               <Lock className="w-3 h-3 text-emerald-500" />
               <span>SSL Secured Tunnel</span>
@@ -1019,7 +1019,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
         </div>
       ) : (
         /* FULLY AUTHENTICATED ADMIN DASHBOARD */
-        <div className="w-full max-w-6xl bg-slate-50 border border-slate-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh] animate-in zoom-in-95 duration-200">
+        <div className="w-full max-w-7xl bg-slate-50 border border-slate-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh] animate-in zoom-in-95 duration-200">
           
           {/* Header */}
           <div className="p-4 sm:p-6 bg-white border-b border-slate-150 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -1056,7 +1056,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-[10px] transition-all font-semibold cursor-pointer ${
                   soundEnabled
                     ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
-                    : 'bg-slate-100 border-slate-200 text-slate-400'
+                    : 'bg-slate-100 border-slate-200 text-slate-600'
                 }`}
               >
                 {soundEnabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
@@ -1080,10 +1080,10 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
           </div>
 
           {/* Navigation Tabs */}
-          <div className="px-4 bg-sky-100 border-b border-sky-200 flex items-center gap-1 sm:gap-4 overflow-x-auto whitespace-nowrap scrollbar-none">
+          <div className="px-4 bg-sky-100 border-b border-sky-200 flex items-center gap-3 sm:gap-6 overflow-x-auto whitespace-nowrap scrollbar-none">
             <button
               onClick={() => setActiveTab('appointments')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative cursor-pointer text-black ${
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative cursor-pointer text-black ${
                 activeTab === 'appointments' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
@@ -1095,11 +1095,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('live_chat')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative flex items-center gap-1.5 cursor-pointer text-black ${
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative flex items-center gap-1.5 cursor-pointer text-black ${
                 activeTab === 'live_chat' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
-              <MessageSquare className="w-3.5 h-3.5" />
+              <MessageSquare className="w-3.5 h-3.5 flex-shrink-0" />
               <span>Live Support Chat</span>
               {chatSessions.filter(s => s.unread).length > 0 && (
                 <span className="px-1.5 py-0.5 rounded-full bg-cyan-500 text-[8px] font-black text-slate-950">
@@ -1110,27 +1110,27 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('site_data')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
                 activeTab === 'site_data' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
-              <Edit className="w-3.5 h-3.5" />
+              <Edit className="w-3.5 h-3.5 flex-shrink-0" />
               <span>Site Tahrirlash</span>
             </button>
 
             <button
               onClick={() => setActiveTab('security')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
                 activeTab === 'security' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
-              <Shield className="w-3.5 h-3.5" />
+              <Shield className="w-3.5 h-3.5 flex-shrink-0" />
               <span>Xavfsizlik monitori</span>
             </button>
 
             <button
               onClick={() => setActiveTab('reviews')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
                 activeTab === 'reviews' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
@@ -1139,7 +1139,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('analytics')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
                 activeTab === 'analytics' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
@@ -1242,13 +1242,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             <td className="p-4 font-mono text-slate-600">{apt.phone}</td>
                             <td className="p-4 text-slate-600">
                               <span className="block font-medium">{apt.date}</span>
-                              <span className="text-[10px] font-mono text-slate-400">{apt.time}</span>
+                              <span className="text-[10px] font-mono text-slate-600">{apt.time}</span>
                             </td>
                             <td className="p-4 text-slate-600">
                               <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 text-[11px] font-medium">
                                 {apt.department}
                               </span>
-                              <span className="block text-[10px] text-slate-400 mt-1">{apt.doctor}</span>
+                              <span className="block text-[10px] text-slate-600 mt-1">{apt.doctor}</span>
                             </td>
                             <td className="p-4">
                               <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${
@@ -1280,7 +1280,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               )}
                               <button
                                 onClick={() => handleDeleteAppointment(apt.id)}
-                                className="p-1.5 rounded-lg bg-slate-50 hover:bg-rose-50 hover:text-rose-600 text-slate-400 transition-all cursor-pointer"
+                                className="p-1.5 rounded-lg bg-slate-50 hover:bg-rose-50 hover:text-rose-600 text-slate-600 transition-all cursor-pointer"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
@@ -1289,7 +1289,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         ))}
                         {pagedAppointments.length === 0 && (
                           <tr>
-                            <td colSpan={6} className="p-8 text-center text-slate-400 text-xs">
+                            <td colSpan={6} className="p-8 text-center text-slate-600 text-xs">
                               Qidiruv yoki filter bo'yicha ariza topilmadi.
                             </td>
                           </tr>
@@ -1400,7 +1400,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                 {translations[cmsLanguage]?.[serv.titleKey] || serv.titleKey}
                               </span>
                               <div className="flex items-center gap-2">
-                                <span className="text-[10px] text-slate-400 font-mono bg-white px-2 py-0.5 rounded-md border border-slate-100">ID: {serv.id}</span>
+                                <span className="text-[10px] text-slate-600 font-mono bg-white px-2 py-0.5 rounded-md border border-slate-100">ID: {serv.id}</span>
                                 <button
                                   onClick={() => handleDeleteService(serv.id)}
                                   className="p-1 rounded bg-rose-50 hover:bg-rose-100 text-rose-600 transition-colors cursor-pointer"
@@ -1794,7 +1794,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                         {/* Biz Haqimizda Bo'limi Matnlari */}
                         <div className="border-t border-slate-100 pt-4 mt-4 space-y-4">
-                          <h5 className="text-[10px] font-bold text-slate-400 uppercase font-mono tracking-wider">"Biz Haqimizda" Bo'limi</h5>
+                          <h5 className="text-[10px] font-bold text-slate-600 uppercase font-mono tracking-wider">"Biz Haqimizda" Bo'limi</h5>
                           
                           <div>
                             <label className="block text-[8px] text-slate-500 uppercase font-mono font-semibold mb-1">Bo'lim Sarlavhasi (About Title)</label>
@@ -1942,7 +1942,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                         {/* Bo'lim Sarlavhalari (Section Titles) */}
                         <div className="border-t border-slate-100 pt-4 mt-4 space-y-4">
-                          <h5 className="text-[10px] font-bold text-slate-400 uppercase font-mono tracking-wider">Bo'lim Sarlavhalari (Section Titles & Subtitles)</h5>
+                          <h5 className="text-[10px] font-bold text-slate-600 uppercase font-mono tracking-wider">Bo'lim Sarlavhalari (Section Titles & Subtitles)</h5>
 
                           <div className="grid grid-cols-1 gap-4">
                             {/* Xizmatlar */}
@@ -1950,7 +1950,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <span className="block text-[9px] font-bold text-slate-600 uppercase font-mono">Xizmatlar bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Sarlavha (services_title)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Sarlavha (services_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.services_title || ""} 
@@ -1967,7 +1967,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Izoh (services_subtitle)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Izoh (services_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.services_subtitle || ""} 
@@ -1991,7 +1991,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <span className="block text-[9px] font-bold text-slate-600 uppercase font-mono">Shifokorlar bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Sarlavha (doctors_title)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Sarlavha (doctors_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.doctors_title || ""} 
@@ -2008,7 +2008,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Izoh (doctors_subtitle)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Izoh (doctors_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.doctors_subtitle || ""} 
@@ -2032,7 +2032,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <span className="block text-[9px] font-bold text-slate-600 uppercase font-mono">Galereya bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Sarlavha (gallery_title)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Sarlavha (gallery_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.gallery_title || ""} 
@@ -2049,7 +2049,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Izoh (gallery_subtitle)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Izoh (gallery_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.gallery_subtitle || ""} 
@@ -2073,7 +2073,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <span className="block text-[9px] font-bold text-slate-600 uppercase font-mono">Izohlar bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Sarlavha (reviews_title)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Sarlavha (reviews_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.reviews_title || ""} 
@@ -2090,7 +2090,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Izoh (reviews_subtitle)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Izoh (reviews_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.reviews_subtitle || ""} 
@@ -2114,7 +2114,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <span className="block text-[9px] font-bold text-slate-600 uppercase font-mono">Qabulga yozilish bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Sarlavha (booking_title)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Sarlavha (booking_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.booking_title || ""} 
@@ -2131,7 +2131,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Izoh (booking_subtitle)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Izoh (booking_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.booking_subtitle || ""} 
@@ -2155,7 +2155,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <span className="block text-[9px] font-bold text-slate-600 uppercase font-mono">Aloqa bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Sarlavha (contact_title)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Sarlavha (contact_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.contact_title || ""} 
@@ -2172,7 +2172,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-slate-400 uppercase font-mono">Izoh (contact_subtitle)</label>
+                                  <label className="block text-[7px] text-slate-600 uppercase font-mono">Izoh (contact_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.contact_subtitle || ""} 
@@ -2333,7 +2333,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
                       </div>
 
-                      <div className="space-y-2 text-[10px] text-slate-400">
+                      <div className="space-y-2 text-[10px] text-slate-600">
                         <p>💡 Ushbu rasmlar saytning Galereya qismi tepasidagi interaktiv suriluvchi solishtirish oynasida ko'rinadi.</p>
                       </div>
                     </div>
@@ -2382,7 +2382,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             }}
                           />
                         </label>
-                        <span className="text-[10px] text-slate-400 block mt-2">Formatlar: JPG, PNG, WEBP (Maks 10MB)</span>
+                        <span className="text-[10px] text-slate-600 block mt-2">Formatlar: JPG, PNG, WEBP (Maks 10MB)</span>
                       </div>
                     </div>
 
@@ -2397,9 +2397,9 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
               <div className="space-y-6">
                 
                 {/* Telegram Bot Setup Bar */}
-                <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-800 space-y-4">
+                <div className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-xs uppercase font-mono tracking-wider text-slate-400 font-bold flex items-center gap-2">
+                    <h4 className="text-xs uppercase font-mono tracking-wider text-slate-600 font-bold flex items-center gap-2">
                       <Send className="w-4 h-4 text-cyan-400" />
                       <span>Telegram Bot va Kanal Xabarnomalari</span>
                     </h4>
@@ -2414,7 +2414,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         value={telegramConfig.botToken}
                         onChange={(e) => setTelegramConfig(prev => ({ ...prev, botToken: e.target.value }))}
                         placeholder={telegramConfig.botToken ? "********" : "68231215:AAFlkX193..."} 
-                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none"
+                        className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none"
                       />
                     </div>
                     <div>
@@ -2424,7 +2424,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         value={telegramConfig.chatId}
                         onChange={(e) => setTelegramConfig(prev => ({ ...prev, chatId: e.target.value }))}
                         placeholder="Masalan: 12458319" 
-                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none"
+                        className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none"
                       />
                     </div>
                     <div className="flex gap-2">
@@ -2437,7 +2437,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       <button 
                         type="button"
                         onClick={handleTestTelegram}
-                        className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-cyan-400 font-bold text-xs border border-slate-700 transition-all"
+                        className="px-3 py-2 rounded-lg bg-sky-100 hover:bg-sky-200 text-blue-700 font-bold text-xs border border-sky-300 transition-all"
                       >
                         Test
                       </button>
@@ -2455,18 +2455,18 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[480px]">
                   
                   {/* Left Column: Sessions List (4 cols) */}
-                  <div className="lg:col-span-4 rounded-2xl bg-slate-950/40 border border-slate-800 flex flex-col overflow-hidden">
-                    <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                      <span className="text-xs font-bold font-mono uppercase text-slate-400">Aktiv Chat Seanslari</span>
+                  <div className="lg:col-span-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col overflow-hidden">
+                    <div className="p-4 bg-sky-50 border-b border-sky-200 flex items-center justify-between">
+                      <span className="text-xs font-bold font-mono uppercase text-slate-600">Aktiv Chat Seanslari</span>
                       <button 
                         onClick={fetchChatSessions}
-                        className="p-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition-colors"
+                        className="p-1 rounded bg-white hover:bg-sky-100 border border-sky-200 text-slate-600 hover:text-slate-900 transition-colors"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto divide-y divide-slate-800/40">
+                    <div className="flex-1 overflow-y-auto divide-y divide-sky-200/40">
                       {chatSessions.length === 0 ? (
                         <div className="text-center py-12 text-slate-600 text-xs">Aktiv chat seanslari yo'q</div>
                       ) : (
@@ -2477,17 +2477,17 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             className={`p-3.5 cursor-pointer flex items-center justify-between transition-colors ${
                               selectedSessionId === sess.id 
                                 ? 'bg-blue-600/10 border-l-4 border-blue-500' 
-                                : 'hover:bg-slate-800/20'
+                                : 'hover:bg-sky-100/20'
                             }`}
                           >
                             <div className="flex-1 min-w-0 pr-2">
                               <div className="flex items-center justify-between mb-1">
-                                <span className="font-semibold text-xs text-slate-200 truncate">{sess.name}</span>
+                                <span className="font-semibold text-xs text-black truncate">{sess.name}</span>
                                 <span className="text-[9px] text-slate-500 font-mono">
                                   {sess.lastUpdated ? new Date(sess.lastUpdated).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
                                 </span>
                               </div>
-                              <p className="text-[11px] text-slate-400 truncate">
+                              <p className="text-[11px] text-slate-600 truncate">
                                 {sess.messages?.[sess.messages.length - 1]?.text || "Bo'sh chat..."}
                               </p>
                             </div>
@@ -2502,13 +2502,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   </div>
 
                   {/* Right Column: Chat Dialog Screen (8 cols) */}
-                  <div className="lg:col-span-8 rounded-2xl bg-slate-950/40 border border-slate-800 flex flex-col overflow-hidden">
+                  <div className="lg:col-span-8 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col overflow-hidden">
                     {selectedSessionId && activeSession ? (
                       <>
                         {/* Selected Header */}
-                        <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                        <div className="p-4 bg-sky-50 border-b border-sky-200 flex items-center justify-between">
                           <div>
-                            <span className="block font-bold text-xs text-white">{activeSession.name}</span>
+                            <span className="block font-bold text-xs text-black">{activeSession.name}</span>
                             <span className="text-[9px] text-slate-500 font-mono">Seans ID: {activeSession.id}</span>
                           </div>
                           <span className="text-[10px] text-emerald-400 flex items-center gap-1">
@@ -2518,7 +2518,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
 
                         {/* Dialogue Stream */}
-                        <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-950/10">
+                        <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-sky-50/10">
                           {activeSession.messages?.map((m: any, i: number) => (
                             <div 
                               key={i}
@@ -2527,7 +2527,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <div className="flex flex-col">
                                 <div className={`px-3 py-2 rounded-2xl text-xs leading-relaxed ${
                                   m.role === 'user' 
-                                    ? 'bg-slate-900 border border-slate-850 text-slate-200 rounded-tl-sm'
+                                    ? 'bg-white border border-sky-200 text-black rounded-tl-sm'
                                     : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-tr-sm'
                                 }`}>
                                   {m.text}
@@ -2542,13 +2542,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
 
                         {/* Response Input */}
-                        <form onSubmit={handleSendAdminReply} className="p-3 bg-slate-950 border-t border-slate-850 flex gap-2">
+                        <form onSubmit={handleSendAdminReply} className="p-3 bg-sky-50 border-t border-sky-200 flex gap-2">
                           <input 
                             type="text" 
                             value={adminReplyText}
                             onChange={(e) => setAdminReplyText(e.target.value)}
                             placeholder="Mijozga javob yozing... (TG bot xabar beradi)"
-                            className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                            className="flex-1 bg-white border border-sky-200 rounded-xl px-4 py-2.5 text-xs text-black placeholder-slate-600 focus:outline-none focus:border-blue-500"
                           />
                           <button 
                             type="submit"
@@ -2580,17 +2580,17 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 
                 {/* Visual Security Alerts Box */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-4 rounded-2xl bg-slate-950/40 border border-slate-800 flex items-center gap-3">
+                  <div className="p-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
                       <Shield className="w-5 h-5" />
                     </div>
                     <div>
                       <span className="block text-[9px] uppercase tracking-wider font-mono text-slate-500">Shield Protection</span>
-                      <span className="text-xs font-bold text-slate-200">Express Firewall Active</span>
+                      <span className="text-xs font-bold text-black">Express Firewall Active</span>
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-slate-950/40 border border-slate-800 flex items-center gap-3">
+                  <div className="p-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
                       <Lock className="w-5 h-5" />
                     </div>
@@ -2600,13 +2600,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-slate-950/40 border border-slate-800 flex items-center gap-3">
+                  <div className="p-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400">
                       <Activity className="w-5 h-5 animate-pulse" />
                     </div>
                     <div>
                       <span className="block text-[9px] uppercase tracking-wider font-mono text-slate-500">Security Threats</span>
-                      <span className="text-xs font-bold text-slate-200">0 Hazards Detected</span>
+                      <span className="text-xs font-bold text-black">0 Hazards Detected</span>
                     </div>
                   </div>
                 </div>
@@ -2617,9 +2617,9 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   <div className="lg:col-span-5 space-y-6">
                     
                     {/* Diagnostic Audit Control Panel */}
-                    <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-800 space-y-5">
+                    <div className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 space-y-5">
                       <div>
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-slate-600 font-bold flex items-center gap-1.5">
                           <Terminal className="w-4 h-4 text-blue-400" />
                           <span>Tizim Port Security Audit (Nmap Scan)</span>
                         </h4>
@@ -2628,10 +2628,10 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </p>
                       </div>
 
-                      <div className="space-y-2 border-t border-slate-850 pt-3 text-xs">
+                      <div className="space-y-2 border-t border-sky-200 pt-3 text-xs">
                         <div className="flex justify-between">
                           <span className="text-slate-500 font-mono">So'nggi Skanerlash:</span>
-                          <span className="text-slate-300 font-bold font-mono">{securityState.lastScanTime}</span>
+                          <span className="text-slate-800 font-bold font-mono">{securityState.lastScanTime}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-slate-500 font-mono">Xavf Darajasi:</span>
@@ -2639,7 +2639,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
                         <div className="flex justify-between">
                           <span className="text-slate-500 font-mono">Ochiq Portlar:</span>
-                          <span className="text-slate-300 font-mono">{securityState.openPorts?.join(", ") || "Faqat Port 3000"}</span>
+                          <span className="text-slate-800 font-mono">{securityState.openPorts?.join(", ") || "Faqat Port 3000"}</span>
                         </div>
                       </div>
 
@@ -2655,7 +2655,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                         <button 
                           onClick={handleCloseDangerousPorts}
-                          className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 hover:text-white font-bold text-xs border border-slate-700 transition-all flex items-center justify-center gap-2"
+                          className="w-full py-2.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-black font-bold text-xs border border-sky-300 transition-all flex items-center justify-center gap-2"
                         >
                           <Lock className="w-4 h-4 text-emerald-400" />
                           <span>Havfli ochiq portlarni yopish</span>
@@ -2664,9 +2664,9 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                     </div>
 
                     {/* Auto-renew Certificates Controls */}
-                    <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-800 space-y-5">
+                    <div className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 space-y-5">
                       <div>
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-slate-600 font-bold flex items-center gap-1.5">
                           <Key className="w-4 h-4 text-cyan-400" />
                           <span>Sertifikatlarni Avtomatik Yangilash</span>
                         </h4>
@@ -2677,10 +2677,10 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                       <div className="space-y-3">
                         {securityState.certificates?.map((cert: any) => (
-                          <div key={cert.id} className="p-2.5 rounded-xl bg-slate-900 border border-slate-850 text-xs flex items-center justify-between">
+                          <div key={cert.id} className="p-2.5 rounded-xl bg-white border border-sky-200 text-xs flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                              <span className="font-semibold text-slate-300">{cert.name}</span>
+                              <span className="font-semibold text-slate-800">{cert.name}</span>
                             </div>
                             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">{cert.expiry}</span>
                           </div>
@@ -2700,19 +2700,19 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   </div>
 
                   {/* Right Real-time Secure Terminal Column (7 cols) */}
-                  <div className="lg:col-span-7 flex flex-col rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden h-[460px]">
-                    <div className="px-4 py-3 bg-slate-950 border-b border-slate-850 flex items-center justify-between">
+                  <div className="lg:col-span-7 flex flex-col rounded-2xl bg-sky-50 border border-sky-200 overflow-hidden h-[460px]">
+                    <div className="px-4 py-3 bg-sky-50 border-b border-sky-200 flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
                         <span className="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                        <span className="text-xs font-mono text-slate-400 ml-2">secure_admin_diagnostic.sh</span>
+                        <span className="text-xs font-mono text-slate-600 ml-2">secure_admin_diagnostic.sh</span>
                       </div>
                       <span className="text-[10px] text-slate-500 font-mono">Express Tunnel v2.5</span>
                     </div>
 
                     {/* Console log outputs */}
-                    <div className="flex-1 p-4 overflow-y-auto bg-slate-950/80 font-mono text-xs text-emerald-400 space-y-2">
+                    <div className="flex-1 p-4 overflow-y-auto bg-sky-50/80 font-mono text-xs text-emerald-400 space-y-2">
                       {securityLogs.length === 0 ? (
                         <div className="text-slate-600 flex flex-col items-center justify-center h-full text-center space-y-2">
                           <Terminal className="w-8 h-8 text-slate-800" />
@@ -2738,14 +2738,14 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
             {/* 5. REVIEWS MODERATION */}
             {activeTab === 'reviews' && (
               <div className="space-y-4">
-                <h3 className="text-sm font-bold text-slate-200 font-display">Bemorlar fikr-mulohazalarini moderatsiya qilish</h3>
+                <h3 className="text-sm font-bold text-black font-display">Bemorlar fikr-mulohazalarini moderatsiya qilish</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {reviews.map((rev) => (
-                    <div key={rev.id} className="p-5 rounded-2xl bg-slate-950/40 border border-slate-800 flex flex-col justify-between">
+                    <div key={rev.id} className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-semibold text-slate-200">{rev.name}</span>
+                          <span className="font-semibold text-black">{rev.name}</span>
                           <span className="text-xs font-mono text-slate-500">{rev.date}</span>
                         </div>
                         <div className="flex items-center gap-1 mb-3 text-amber-500">
@@ -2753,14 +2753,14 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             <span key={i}>★</span>
                           ))}
                         </div>
-                        <p className="text-sm text-slate-400 italic">"{rev.text}"</p>
+                        <p className="text-sm text-slate-600 italic">"{rev.text}"</p>
 
                         {rev.reply && (
                           <div className="mt-3 pl-3 border-l-2 border-sky-500 bg-sky-500/5 rounded-r-lg py-2 px-3">
                             <span className="block text-[10px] font-bold text-sky-400 uppercase tracking-wide mb-1">
                               Sizning javobingiz
                             </span>
-                            <p className="text-xs text-slate-300">{rev.reply}</p>
+                            <p className="text-xs text-slate-800">{rev.reply}</p>
                           </div>
                         )}
 
@@ -2771,7 +2771,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             onChange={(e) => setReviewReplyDrafts(prev => ({ ...prev, [rev.id]: e.target.value }))}
                             onKeyDown={(e) => { if (e.key === 'Enter') sendReviewReply(rev.id); }}
                             placeholder={rev.reply ? "Javobni yangilash..." : "Javob yozish..."}
-                            className="flex-1 bg-slate-900 border border-slate-800 focus:border-sky-500 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none"
+                            className="flex-1 bg-white border border-sky-200 focus:border-sky-500 rounded-lg px-3 py-1.5 text-xs text-black placeholder:text-slate-600 focus:outline-none"
                           />
                           <button
                             onClick={() => sendReviewReply(rev.id)}
@@ -2782,7 +2782,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-800/50">
+                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-sky-200/50">
                         <span className="text-xs text-emerald-400 flex items-center gap-1">
                           <Check className="w-3.5 h-3.5" /> Chop etilgan (Published)
                         </span>
@@ -2812,11 +2812,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   
                   {/* Chart Block */}
-                  <div className="md:col-span-2 p-6 rounded-2xl bg-slate-950/40 border border-slate-800">
+                  <div className="md:col-span-2 p-6 rounded-2xl bg-sky-50/40 border border-sky-200">
                     <div className="flex items-center justify-between mb-6">
                       <div>
-                        <h4 className="text-sm font-semibold text-slate-200">Klinika Tashriflar Grafigi</h4>
-                        <p className="text-xs text-slate-400">Oylik muvaffaqiyatli qabul arizalari tahlili</p>
+                        <h4 className="text-sm font-semibold text-black">Klinika Tashriflar Grafigi</h4>
+                        <p className="text-xs text-slate-600">Oylik muvaffaqiyatli qabul arizalari tahlili</p>
                       </div>
                       {(() => {
                         // Real month-over-month growth from server analytics
@@ -2856,22 +2856,22 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   </div>
 
                   {/* Financial Summary */}
-                  <div className="p-6 rounded-2xl bg-slate-950/40 border border-slate-800 flex flex-col justify-between">
+                  <div className="p-6 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col justify-between">
                     <div>
-                      <h4 className="text-sm font-semibold text-slate-200 mb-4 font-display">Qabullar Hisoboti (Real)</h4>
+                      <h4 className="text-sm font-semibold text-black mb-4 font-display">Qabullar Hisoboti (Real)</h4>
                       <div className="space-y-4">
                         <div>
                           <span className="text-xs text-slate-500 block uppercase font-mono">Tasdiqlangan qabullar</span>
                           <div className="text-2xl font-black text-slate-100 flex items-center gap-1 mt-1 font-display">
                             <Check className="w-6 h-6 text-emerald-500" />
                             <span>{analytics.approved}</span>
-                            <span className="text-xs text-slate-400 font-normal ml-1">/ {analytics.total} ta ariza</span>
+                            <span className="text-xs text-slate-600 font-normal ml-1">/ {analytics.total} ta ariza</span>
                           </div>
                         </div>
 
-                        <div className="pt-4 border-t border-slate-800/80">
+                        <div className="pt-4 border-t border-sky-200/80">
                           <span className="text-xs text-slate-500 block uppercase font-mono">Eng ko'p tanlangan shifokor</span>
-                          <div className="text-sm font-semibold text-slate-200 mt-1">
+                          <div className="text-sm font-semibold text-black mt-1">
                             {(() => {
                               const counts: Record<string, number> = {};
                               appointments.forEach((a) => { if (a.doctor) counts[a.doctor] = (counts[a.doctor] || 0) + 1; });
@@ -2883,7 +2883,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-800/80">
+                    <div className="pt-4 border-t border-sky-200/80">
                       <span className="text-[10px] text-slate-500 uppercase font-mono block">Ma'lumotlar bazasi holati</span>
                       <div className="flex items-center gap-2 mt-2">
                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
