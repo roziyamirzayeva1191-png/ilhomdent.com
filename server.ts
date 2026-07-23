@@ -479,6 +479,78 @@ async function startServer() {
   app.disable("x-powered-by");
   app.set("trust proxy", 1); // behind Nginx
 
+  // ---------- Flood / DDoS avtomatik bloklash ----------
+  // Agar bitta IP manzil 1 soniya ichida 100 dan ortiq so'rov yuborsa,
+  // bu aniq hujum (bot/flood) patterni hisoblanadi va shu IP avtomatik
+  // ravishda 15 daqiqaga bloklanadi. Bu tekshiruv barcha boshqa
+  // middleware'lardan OLDIN, eng birinchi bo'lib ishlaydi — shunda
+  // bloklangan so'rov serverning boshqa resurslarini band qilmaydi.
+  const FLOOD_WINDOW_MS = 1000; // 1 soniyalik oyna
+  const FLOOD_THRESHOLD = 100; // shu oyna ichida ruxsat etilgan maksimal so'rov
+  const FLOOD_BAN_MS = 15 * 60 * 1000; // blok muddati: 15 daqiqa
+
+  const floodTimestamps = new Map<string, number[]>();
+  const floodBannedIps = new Map<string, number>(); // ip -> blok tugash vaqti (ms, epoch)
+
+  function floodGuard(req: Request, res: Response, next: NextFunction) {
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    const now = Date.now();
+
+    const bannedUntil = floodBannedIps.get(ip);
+    if (bannedUntil !== undefined) {
+      if (now < bannedUntil) {
+        res.setHeader("Retry-After", Math.ceil((bannedUntil - now) / 1000).toString());
+        return res
+          .status(429)
+          .json({ error: "IP manzilingiz hujumga o'xshash faollik tufayli vaqtincha bloklangan." });
+      }
+      floodBannedIps.delete(ip);
+    }
+
+    let timestamps = floodTimestamps.get(ip);
+    if (!timestamps) {
+      timestamps = [];
+      floodTimestamps.set(ip, timestamps);
+    }
+    timestamps.push(now);
+    while (timestamps.length && timestamps[0] < now - FLOOD_WINDOW_MS) {
+      timestamps.shift();
+    }
+
+    if (timestamps.length > FLOOD_THRESHOLD) {
+      floodBannedIps.set(ip, now + FLOOD_BAN_MS);
+      floodTimestamps.delete(ip);
+      logLine(
+        "error",
+        `[FLOOD-GUARD] IP avtomatik bloklandi (hujum shubhasi): ip=${ip} 1s ichida ${timestamps.length}+ so'rov`
+      );
+      notifyTelegram(
+        `🚨 <b>Hujum aniqlandi va avtomatik bloklandi</b>\n\n📡 IP: <code>${ip}</code>\n⚡ 1 soniyada: ${timestamps.length}+ so'rov\n⏱ Blok muddati: 15 daqiqa`
+      );
+      res.setHeader("Retry-After", Math.ceil(FLOOD_BAN_MS / 1000).toString());
+      return res
+        .status(429)
+        .json({ error: "Haddan tashqari ko'p so'rov aniqlandi (hujum shubhasi). IP vaqtincha bloklandi." });
+    }
+
+    next();
+  }
+  app.use(floodGuard);
+
+  // Xotirani tozalab turish — faol bo'lmagan IP yozuvlari va muddati
+  // o'tgan bloklarni olib tashlaydi (memory leak oldini olish uchun).
+  setInterval(() => {
+    const now = Date.now();
+    for (const [ip, timestamps] of floodTimestamps.entries()) {
+      if (!timestamps.length || timestamps[timestamps.length - 1] < now - FLOOD_WINDOW_MS * 2) {
+        floodTimestamps.delete(ip);
+      }
+    }
+    for (const [ip, until] of floodBannedIps.entries()) {
+      if (now >= until) floodBannedIps.delete(ip);
+    }
+  }, 5 * 60 * 1000).unref();
+
   // ---------- Security & performance middleware ----------
   app.use(
     helmet({
@@ -556,6 +628,20 @@ async function startServer() {
   // ---------- Uploads (auth-protected, validated) ----------
   const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(process.cwd(), "public", "uploads");
   if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+
+  // ---------- Deploy signal (safe, socket-less "update" trigger) ----------
+  // Ilova Docker'ga HECH QACHON to'g'ridan-to'g'ri tegmaydi (docker.sock yo'q,
+  // SSH kaliti yo'q). U faqat shu papkaga bitta belgi-fayl yozadi. Serverning
+  // o'zida (konteynerdan tashqarida) ishlaydigan alohida watcher skript shu
+  // faylni ko'rib, FAQAT bitta qat'iy buyruqni bajaradi: `git pull && docker
+  // compose up -d --build`. Bu shuni anglatadiki, hatto ilova to'liq buzib
+  // kirilsa ham, tajovuzkor faqat "rasmiy repodan kodni qayta yuklash"ni
+  // ishga tushira oladi — boshqa hech qanday buyruq yoki konteynerga kirish
+  // imkoniyatiga ega bo'lmaydi.
+  const DEPLOY_DIR = process.env.DEPLOY_DIR || path.join(process.cwd(), "deploy-signal");
+  if (!fs.existsSync(DEPLOY_DIR)) fs.mkdirSync(DEPLOY_DIR, { recursive: true });
+  const DEPLOY_REQUEST_FILE = path.join(DEPLOY_DIR, "update.request");
+  const DEPLOY_LOG_FILE = path.join(DEPLOY_DIR, "update.log");
 
   app.use(
     "/uploads",
@@ -827,6 +913,7 @@ async function startServer() {
         dbHealthy: dbHealthy(),
         uploadsCount,
         lastBackup: kvGet<string>("ops:lastBackup", null),
+        floodBannedIpsCount: floodBannedIps.size,
       },
     };
   }
@@ -842,6 +929,8 @@ async function startServer() {
       "[CHECK] Sessiya: JWT + HttpOnly/SameSite=Strict cookie [OK]",
       "[CHECK] Rate limiting: faol (login 10/15min, API 600/15min) [OK]",
       "[CHECK] Brute-force lockout: faol (5 xato -> 15 daqiqa blok) [OK]",
+      "[CHECK] Flood/DDoS avtomatik blok: faol (1s ichida 100+ so'rov -> 15 daqiqa avtoblok) [OK]",
+      `[CHECK] Hozirda bloklangan IP'lar: ${security.meta.floodBannedIpsCount} ta`,
       "[CHECK] Helmet security headers + CSP: faol [OK]",
       `[CHECK] Yuklangan fayllar: ${security.meta.uploadsCount} ta (faqat tekshirilgan rasmlar) [OK]`,
       `[CHECK] Oxirgi zaxira nusxa: ${security.meta.lastBackup || "hali yaratilmagan"}`,
@@ -876,6 +965,50 @@ async function startServer() {
       "[SUCCESS] Tekshiruv yakunlandi. Sertifikat boshqaruvi server darajasida avtomatlashtirilgan.",
     ];
     res.json({ success: true, logs, security });
+  });
+
+  // Kod/konteynerni yangilash — xavfsiz, socket'siz usul.
+  // Bu yerda hech qanday `docker` yoki `git` buyrug'i ISHGA TUSHIRILMAYDI.
+  // Faqat "so'rov fayli" yoziladi; haqiqiy yangilanishni server tashqarisidagi
+  // watcher skript (scripts/deploy-watcher.sh) bajaradi.
+  app.post("/api/admin/deploy/trigger-update", requireAuth, requireRole("admin"), (req, res) => {
+    if (fs.existsSync(DEPLOY_REQUEST_FILE)) {
+      return res.status(409).json({
+        error: "Yangilanish so'rovi allaqachon navbatda. Iltimos, avvalgisi tugashini kuting.",
+      });
+    }
+    const requestedBy = (req as any).session?.sub || "admin";
+    const payload = {
+      requestedAt: new Date().toISOString(),
+      requestedBy,
+    };
+    fs.writeFileSync(DEPLOY_REQUEST_FILE, JSON.stringify(payload, null, 2), "utf8");
+    notifyTelegram(
+      `🚀 <b>Yangilanish so'rovi yuborildi</b>\n\n👤 ${requestedBy}\n📅 ${new Date().toLocaleString("uz-UZ")}\n\nServer galdagi tekshiruvda kodni GitHub'dan tortib, konteynerni qayta quradi.`
+    );
+    res.json({
+      success: true,
+      message:
+        "So'rov qabul qilindi. Server tomonidagi watcher xizmat bir necha soniya - 1 daqiqa ichida kodni GitHub'dan tortib, konteynerni qayta quradi.",
+    });
+  });
+
+  app.get("/api/admin/deploy/status", requireAuth, requireRole("admin"), (_req, res) => {
+    const pending = fs.existsSync(DEPLOY_REQUEST_FILE);
+    let pendingSince: string | null = null;
+    if (pending) {
+      try {
+        pendingSince = JSON.parse(fs.readFileSync(DEPLOY_REQUEST_FILE, "utf8")).requestedAt || null;
+      } catch {
+        pendingSince = null;
+      }
+    }
+    let log = "";
+    if (fs.existsSync(DEPLOY_LOG_FILE)) {
+      const full = fs.readFileSync(DEPLOY_LOG_FILE, "utf8");
+      log = full.slice(-4000); // oxirgi qismini ko'rsatish
+    }
+    res.json({ pending, pendingSince, log });
   });
 
   // ---------- Live chat ----------

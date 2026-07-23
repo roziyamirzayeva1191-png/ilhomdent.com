@@ -268,6 +268,9 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
   const [securityLogs, setSecurityLogs] = useState<string[]>([]);
   const [isScanning, setIsScanning] = useState(false);
   const [isRenewingCert, setIsRenewingCert] = useState(false);
+  const [isDeploying, setIsDeploying] = useState(false);
+  const [deployPending, setDeployPending] = useState(false);
+  const [deployLog, setDeployLog] = useState("");
 
   const logsEndRef = useRef<HTMLDivElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -808,6 +811,52 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
       setIsRenewingCert(false);
     }
   };
+
+  // Xavfsiz "Kodni yangilash" — Docker socket'siz, faqat signal-fayl orqali.
+  // Ilova bu yerda hech qanday Docker/git buyrug'ini o'zi bajarmaydi;
+  // serverdagi alohida watcher skript signalni ko'rib, git pull + docker
+  // compose up -d --build'ni bajaradi. Batafsil: DEPLOYMENT.md, 10-bo'lim.
+  const fetchDeployStatus = async () => {
+    try {
+      const res = await fetch("/api/admin/deploy/status");
+      if (res.ok) {
+        const data = await res.json();
+        setDeployPending(Boolean(data.pending));
+        setDeployLog(data.log || "");
+      }
+    } catch (err) {
+      // jimgina o'tkazib yuborish — status pollingda xato kritik emas
+    }
+  };
+
+  const handleTriggerDeploy = async () => {
+    setIsDeploying(true);
+    setSecurityLogs(prev => [...prev, "[DEPLOY] Yangilanish so'rovi yuborilmoqda..."]);
+    try {
+      const res = await fetch("/api/admin/deploy/trigger-update", { method: "POST" });
+      const data = await res.json();
+      if (res.ok) {
+        setDeployPending(true);
+        setSecurityLogs(prev => [...prev, `[DEPLOY] ${data.message}`]);
+      } else if (res.status === 401) {
+        setIsLoggedIn(false);
+      } else {
+        setSecurityLogs(prev => [...prev, `[DEPLOY][ERROR] ${data.error || "So'rov bajarilmadi."}`]);
+      }
+    } catch (err) {
+      setSecurityLogs(prev => [...prev, "[DEPLOY][ERROR] Server bilan ulanish xatosi."]);
+    } finally {
+      setIsDeploying(false);
+    }
+  };
+
+  // Deploy holati kutilayotgan bo'lsa, har 5 soniyada avtomatik tekshirib turadi
+  useEffect(() => {
+    if (!isOpen || activeTab !== "security") return;
+    fetchDeployStatus();
+    const interval = setInterval(fetchDeployStatus, 5000);
+    return () => clearInterval(interval);
+  }, [isOpen, activeTab]);
 
   // Inline State editors helper
   const handleEditService = (servId: string, field: string, val: any, langKey?: string) => {
@@ -2759,6 +2808,43 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       >
                         <RefreshCw className={`w-4 h-4 ${isRenewingCert ? 'animate-spin' : ''}`} />
                         <span>Sertifikatlarni yangilash</span>
+                      </button>
+                    </div>
+
+                    {/* Xavfsiz Deploy (Kodni yangilash) — Docker socket'siz signal-fayl usuli */}
+                    <div className="p-5 rounded-2xl bg-white/40 border border-[#E8EDF5] space-y-5">
+                      <div>
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold flex items-center gap-1.5">
+                          <RefreshCw className="w-4 h-4 text-blue-600" />
+                          <span>Kodni Serverga Yangilash</span>
+                        </h4>
+                        <p className="text-[11px] text-gray-900 mt-1 leading-relaxed">
+                          GitHub'dagi eng so'nggi kodni VPS'ga tortib, konteynerni qayta quradi. Xavfsizlik uchun
+                          ilova Docker'ga to'g'ridan-to'g'ri tegmaydi — faqat signal yuboradi, haqiqiy amalni
+                          serverdagi alohida skript bajaradi.
+                        </p>
+                      </div>
+
+                      {deployPending && (
+                        <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-700 font-semibold flex items-center gap-2">
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                          <span>Yangilanish bajarilmoqda... (serverda 1 daqiqagacha vaqt olishi mumkin)</span>
+                        </div>
+                      )}
+
+                      {deployLog && (
+                        <pre className="p-2.5 rounded-xl bg-gray-900 text-emerald-400 text-[10px] font-mono overflow-x-auto max-h-32 overflow-y-auto whitespace-pre-wrap">
+                          {deployLog}
+                        </pre>
+                      )}
+
+                      <button
+                        onClick={handleTriggerDeploy}
+                        disabled={isDeploying || deployPending}
+                        className="w-full py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold text-xs disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+                      >
+                        <RefreshCw className={`w-4 h-4 ${isDeploying || deployPending ? 'animate-spin' : ''}`} />
+                        <span>{deployPending ? "Yangilanmoqda..." : "Kodni yangilash"}</span>
                       </button>
                     </div>
 

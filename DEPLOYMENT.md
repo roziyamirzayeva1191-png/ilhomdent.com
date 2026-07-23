@@ -136,7 +136,41 @@ curl https://drilhom.uz/api/health     # status: ok
 ```
 Kunlik zaxira + o'chishda zaxira avtomatik ishlaydi (README'ga qarang). 14 kundan eski zaxiralar avtotozalanadi.
 
-## 10. Yakuniy tekshiruv ro'yxati (deploy'dan keyin)
+## 10. Admin paneldan xavfsiz "Yangilash" tugmasi (auto-deploy watcher)
+
+Admin panelda **Xavfsizlik** bo'limida "Kodni yangilash" tugmasi bor. Bu tugma bosilganda ilova
+Docker'ga HECH QANDAY to'g'ridan-to'g'ri kirish huquqiga ega bo'lmaydi — u shunchaki
+`deploy-signal/update.request` nomli belgi-fayl yozadi. Haqiqiy yangilanishni (`git pull` +
+`docker compose up -d --build`) serverning o'zida (konteynerdan tashqarida) ishlaydigan kichik
+skript bajaradi. Shu sababli, hatto ilova butunlay buzib kirilsa ham, tajovuzkor faqat "rasmiy
+GitHub repodan kodni qayta yuklash"ni ishga tushira oladi — boshqa hech qanday buyruq yoki
+Docker/host ustidan nazoratga ega bo'lmaydi.
+
+Buni ishga tushirish uchun VPS'da **bir martalik** sozlash kerak:
+
+```bash
+chmod +x scripts/deploy-watcher.sh
+
+# Cron orqali har daqiqada tekshirilsin (yo'lni o'z loyihangizga moslang):
+crontab -e
+```
+Quyidagi qatorni qo'shing:
+```
+* * * * * /bin/sh /opt/ilhomdent/scripts/deploy-watcher.sh >> /opt/ilhomdent/deploy-signal/watcher.log 2>&1
+```
+
+Tekshirish:
+```bash
+# Admin panelda "Yangilash" tugmasini bosing, so'ng serverda:
+tail -f deploy-signal/update.log
+```
+Log'da `git pull` va `docker compose up -d --build` natijalari ko'rinishi kerak, so'ng
+`update.request` fayli avtomatik o'chadi va admin panelda holat "Yakunlandi" bo'ladi.
+
+> **Eslatma:** Render'da (hozirgi test muhiti) bu funksiya kerak emas — Render har push'da o'zi
+> avtomatik deploy qiladi. Bu bo'lim faqat pullik VPS uchun.
+
+## 11. Yakuniy tekshiruv ro'yxati (deploy'dan keyin)
 
 - [ ] `https://domen` ochiladi, qulf belgisi bor
 - [ ] `http://domen` → `https` ga yo'naltiriladi
@@ -149,6 +183,7 @@ Kunlik zaxira + o'chishda zaxira avtomatik ishlaydi (README'ga qarang). 14 kunda
 - [ ] UptimeRobot monitori "Up"
 - [ ] Backup'dan tiklash bir marta sinovdan o'tdi
 - [ ] `.env` va `data/`, `backups/` git'ga tushmagan (`.gitignore`da bor)
+- [ ] `deploy-watcher.sh` uchun cron sozlangan, admin paneldagi "Yangilash" tugmasi sinovdan o'tdi
 
 Barcha bandlar bajarilsa — loyiha **production'ga to'liq tayyor**.
 

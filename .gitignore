@@ -16,3 +16,6 @@ logs/
 public/uploads/
 site_data_store.json
 site_data_store.json.imported.bak
+
+# Xavfsiz deploy-signal papkasi (runtime signal fayllar, kodga tegishli emas)
+deploy-signal/

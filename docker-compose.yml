@@ -15,6 +15,10 @@ services:
       - ./backups:/app/backups
       - ./logs:/app/logs
       - ./uploads:/app/public/uploads
+      # Xavfsiz deploy-signal: ilova bu yerga FAQAT bitta belgi-fayl yozadi.
+      # Docker socket YO'Q — konteyner Docker'ga hech qanday tega olmaydi.
+      # Haqiqiy yangilanishni host'dagi scripts/deploy-watcher.sh bajaradi.
+      - ./deploy-signal:/app/deploy-signal
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
       interval: 30s
