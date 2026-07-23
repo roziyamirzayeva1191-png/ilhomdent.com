@@ -57,6 +57,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
   // Global States
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewReplyDrafts, setReviewReplyDrafts] = useState<Record<string, string>>({});
+  const [aptReplyDrafts, setAptReplyDrafts] = useState<Record<string, string>>({});
   const [analytics, setAnalytics] = useState<any>({
     total: 0,
     pending: 0,
@@ -712,6 +714,44 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
     }
   };
 
+  const sendReviewReply = async (reviewId: string) => {
+    const text = (reviewReplyDrafts[reviewId] || "").trim();
+    if (!text) return;
+    try {
+      const res = await fetch(`/api/admin/reviews/${reviewId}/reply`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (res.ok) {
+        const updated = await res.json();
+        setReviews(prev => prev.map(r => r.id === reviewId ? updated : r));
+        setReviewReplyDrafts(prev => ({ ...prev, [reviewId]: "" }));
+      }
+    } catch (err) {
+      console.error("Failed to send review reply", err);
+    }
+  };
+
+  const sendAptReply = async (aptId: string) => {
+    const text = (aptReplyDrafts[aptId] || "").trim();
+    if (!text) return;
+    try {
+      const res = await fetch(`/api/admin/appointments/${aptId}/reply`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (res.ok) {
+        const updated = await res.json();
+        setAppointments(prev => prev.map(a => a.id === aptId ? updated : a));
+        setAptReplyDrafts(prev => ({ ...prev, [aptId]: "" }));
+      }
+    } catch (err) {
+      console.error("Failed to send appointment reply", err);
+    }
+  };
+
   // Security status — real system checks are performed on the server.
   const runSecurityScan = async () => {
     setIsScanning(true);
@@ -1040,11 +1080,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
           </div>
 
           {/* Navigation Tabs */}
-          <div className="px-4 bg-white border-b border-slate-150 flex items-center gap-1 sm:gap-4 overflow-x-auto whitespace-nowrap scrollbar-none">
+          <div className="px-4 bg-sky-100 border-b border-sky-200 flex items-center gap-1 sm:gap-4 overflow-x-auto whitespace-nowrap scrollbar-none">
             <button
               onClick={() => setActiveTab('appointments')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative cursor-pointer ${
-                activeTab === 'appointments' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative cursor-pointer text-black ${
+                activeTab === 'appointments' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
               Arizalar Queue
@@ -1055,8 +1095,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('live_chat')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'live_chat' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative flex items-center gap-1.5 cursor-pointer text-black ${
+                activeTab === 'live_chat' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
               <MessageSquare className="w-3.5 h-3.5" />
@@ -1070,8 +1110,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('site_data')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'site_data' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
+                activeTab === 'site_data' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
               <Edit className="w-3.5 h-3.5" />
@@ -1080,8 +1120,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('security')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'security' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
+                activeTab === 'security' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
               <Shield className="w-3.5 h-3.5" />
@@ -1090,8 +1130,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('reviews')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer ${
-                activeTab === 'reviews' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
+                activeTab === 'reviews' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
               Izohlar Moderatsiyasi
@@ -1099,8 +1139,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('analytics')}
-              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer ${
-                activeTab === 'analytics' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+              className={`py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
+                activeTab === 'analytics' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
               Analitika
@@ -1169,13 +1209,35 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       <tbody className="divide-y divide-slate-100 text-xs">
                         {pagedAppointments.map((apt) => (
                           <tr key={apt.id} className="hover:bg-slate-50/50 transition-colors">
-                            <td className="p-4 font-semibold text-slate-800">
+                            <td className="p-4 font-semibold text-slate-800 min-w-[220px]">
                               <div>{apt.name}</div>
                               {apt.comments && (
                                 <div className="text-xs text-slate-500 mt-1 font-normal max-w-xs truncate italic">
                                   "{apt.comments}"
                                 </div>
                               )}
+                              {apt.reply && (
+                                <div className="mt-2 pl-2 border-l-2 border-sky-400 bg-sky-50 rounded-r-lg py-1 px-2">
+                                  <span className="block text-[9px] font-bold text-sky-600 uppercase tracking-wide">Javobingiz</span>
+                                  <span className="text-[11px] text-slate-600">{apt.reply}</span>
+                                </div>
+                              )}
+                              <div className="mt-2 flex gap-1">
+                                <input
+                                  type="text"
+                                  value={aptReplyDrafts[apt.id] || ""}
+                                  onChange={(e) => setAptReplyDrafts(prev => ({ ...prev, [apt.id]: e.target.value }))}
+                                  onKeyDown={(e) => { if (e.key === 'Enter') sendAptReply(apt.id); }}
+                                  placeholder={apt.reply ? "Javobni yangilash..." : "Javob yozish..."}
+                                  className="flex-1 bg-white border border-slate-200 focus:border-sky-400 rounded-lg px-2 py-1 text-[11px] text-slate-700 focus:outline-none"
+                                />
+                                <button
+                                  onClick={() => sendAptReply(apt.id)}
+                                  className="px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-[11px] font-bold transition-colors cursor-pointer"
+                                >
+                                  OK
+                                </button>
+                              </div>
                             </td>
                             <td className="p-4 font-mono text-slate-600">{apt.phone}</td>
                             <td className="p-4 text-slate-600">
@@ -2692,6 +2754,32 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                           ))}
                         </div>
                         <p className="text-sm text-slate-400 italic">"{rev.text}"</p>
+
+                        {rev.reply && (
+                          <div className="mt-3 pl-3 border-l-2 border-sky-500 bg-sky-500/5 rounded-r-lg py-2 px-3">
+                            <span className="block text-[10px] font-bold text-sky-400 uppercase tracking-wide mb-1">
+                              Sizning javobingiz
+                            </span>
+                            <p className="text-xs text-slate-300">{rev.reply}</p>
+                          </div>
+                        )}
+
+                        <div className="mt-3 flex gap-2">
+                          <input
+                            type="text"
+                            value={reviewReplyDrafts[rev.id] || ""}
+                            onChange={(e) => setReviewReplyDrafts(prev => ({ ...prev, [rev.id]: e.target.value }))}
+                            onKeyDown={(e) => { if (e.key === 'Enter') sendReviewReply(rev.id); }}
+                            placeholder={rev.reply ? "Javobni yangilash..." : "Javob yozish..."}
+                            className="flex-1 bg-slate-900 border border-slate-800 focus:border-sky-500 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none"
+                          />
+                          <button
+                            onClick={() => sendReviewReply(rev.id)}
+                            className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-colors cursor-pointer"
+                          >
+                            Yuborish
+                          </button>
+                        </div>
                       </div>
 
                       <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-800/50">
@@ -2699,10 +2787,15 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                           <Check className="w-3.5 h-3.5" /> Chop etilgan (Published)
                         </span>
                         <button
-                          onClick={() => {
+                          onClick={async () => {
+                            try {
+                              await fetch(`/api/admin/reviews/${rev.id}`, { method: "DELETE" });
+                            } catch (err) {
+                              console.error("Failed to delete review", err);
+                            }
                             setReviews(prev => prev.filter(r => r.id !== rev.id));
                           }}
-                          className="text-xs text-slate-500 hover:text-rose-400 transition-colors flex items-center gap-1"
+                          className="text-xs text-slate-500 hover:text-rose-400 transition-colors flex items-center gap-1 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" /> O'chirish
                         </button>

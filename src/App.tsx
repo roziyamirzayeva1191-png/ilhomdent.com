@@ -815,6 +815,15 @@ export default function App() {
                       <p className="text-xs text-slate-600 leading-relaxed font-medium italic">
                         "{rev.text}"
                       </p>
+
+                      {rev.reply && (
+                        <div className="mt-4 pl-3 border-l-2 border-sky-300 bg-sky-50/60 rounded-r-xl py-2 px-3">
+                          <span className="block text-[10px] font-bold text-sky-700 uppercase tracking-wide mb-1">
+                            Klinika javobi
+                          </span>
+                          <p className="text-xs text-slate-700 leading-relaxed">{rev.reply}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}

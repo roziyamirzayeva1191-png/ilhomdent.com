@@ -9,6 +9,8 @@ export interface Appointment {
   comments: string;
   status: 'Pending' | 'Approved' | 'Completed' | 'Cancelled';
   createdAt: string;
+  reply?: string;
+  replyDate?: string;
 }
 
 export interface Review {
@@ -18,6 +20,8 @@ export interface Review {
   text: string;
   date: string;
   status: 'Pending' | 'Approved';
+  reply?: string;
+  replyDate?: string;
 }
 
 export interface Doctor {

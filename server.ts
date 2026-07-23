@@ -354,8 +354,8 @@ function clearLoginFailures(req: Request) {
 // ============================================================
 // Telegram
 // ============================================================
-async function sendTelegramMessage(token: string, chatId: string, text: string) {
-  if (!token || !chatId) return false;
+async function sendTelegramMessage(token: string, chatId: string, text: string): Promise<number | null> {
+  if (!token || !chatId) return null;
   try {
     const url = `https://api.telegram.org/bot${token}/sendMessage`;
     const res = await fetch(url, {
@@ -363,17 +363,110 @@ async function sendTelegramMessage(token: string, chatId: string, text: string) 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
     });
-    return res.ok;
+    if (!res.ok) return null;
+    const json: any = await res.json().catch(() => null);
+    return json?.result?.message_id ?? null;
   } catch (err: any) {
     logLine("error", `Telegram notification failed: ${err.message}`);
-    return false;
+    return null;
   }
 }
 
-function notifyTelegram(text: string) {
+// Correlates an outgoing Telegram notification message_id with the site record it
+// was about, so that when the admin *replies* to that message in Telegram, we know
+// which review / appointment / chat session to attach the reply to.
+type TelegramLinkType = "review" | "appointment" | "chat";
+function rememberTelegramLink(messageId: number, type: TelegramLinkType, id: string) {
+  kvSet(`tglink_${messageId}`, { type, id });
+}
+function recallTelegramLink(messageId: number): { type: TelegramLinkType; id: string } | null {
+  return kvGet(`tglink_${messageId}`, null);
+}
+
+function notifyTelegram(
+  text: string,
+  link?: { type: TelegramLinkType; id: string }
+): void {
   if (config.telegram.enabled && config.telegram.botToken && config.telegram.chatId) {
-    void sendTelegramMessage(config.telegram.botToken, config.telegram.chatId, text);
+    void sendTelegramMessage(config.telegram.botToken, config.telegram.chatId, text).then((messageId) => {
+      if (messageId && link) rememberTelegramLink(messageId, link.type, link.id);
+    });
   }
+}
+
+// ---------- Telegram two-way replies (long polling) ----------
+// Admin replies to a forwarded notification inside their own Telegram app (using
+// Telegram's native "Reply" feature). We poll getUpdates, find the message the
+// admin replied to, look up which review/appointment/chat it belongs to via
+// rememberTelegramLink, and apply the admin's text as that record's reply.
+let telegramPollingActive = false;
+async function pollTelegramUpdatesOnce() {
+  const { botToken, enabled } = config.telegram;
+  if (!enabled || !botToken) return;
+
+  const offset = kvGet<number>("telegram_update_offset", 0) || 0;
+  let updates: any[];
+  try {
+    const res = await fetch(
+      `https://api.telegram.org/bot${botToken}/getUpdates?offset=${offset}&timeout=0&allowed_updates=["message"]`
+    );
+    if (!res.ok) return;
+    const json: any = await res.json();
+    updates = json?.result || [];
+  } catch (err: any) {
+    logLine("error", `Telegram getUpdates failed: ${err.message}`);
+    return;
+  }
+
+  for (const update of updates) {
+    kvSet("telegram_update_offset", update.update_id + 1);
+
+    const msg = update.message;
+    const replyText: string | undefined = msg?.text;
+    const repliedTo = msg?.reply_to_message?.message_id;
+    if (!msg || !replyText || !repliedTo) continue;
+
+    const link = recallTelegramLink(repliedTo);
+    if (!link) continue; // admin replied to something we can't correlate — ignore
+
+    const now = new Date().toISOString();
+    if (link.type === "review") {
+      const review = getRow<any>("reviews", link.id);
+      if (review) {
+        review.reply = replyText;
+        review.replyDate = now;
+        upsertRow("reviews", review.id, review);
+      }
+    } else if (link.type === "appointment") {
+      const apt = getRow<any>("appointments", link.id);
+      if (apt) {
+        apt.reply = replyText;
+        apt.replyDate = now;
+        upsertRow("appointments", apt.id, apt, apt.createdAt);
+      }
+    } else if (link.type === "chat") {
+      const session = getRow<any>("chats", link.id);
+      if (session) {
+        session.messages.push({
+          id: `msg-${Date.now()}-tg`,
+          role: "model",
+          text: replyText,
+          timestamp: now,
+        });
+        session.lastUpdated = now;
+        session.unread = false;
+        upsertRow("chats", session.id, session, session.lastUpdated);
+      }
+    }
+  }
+}
+
+function startTelegramPolling() {
+  if (telegramPollingActive) return;
+  telegramPollingActive = true;
+  setInterval(() => {
+    void pollTelegramUpdatesOnce();
+  }, 4000);
 }
 
 // ============================================================
@@ -381,6 +474,7 @@ function notifyTelegram(text: string) {
 // ============================================================
 async function startServer() {
   initStore();
+  startTelegramPolling();
   const app = express();
   app.disable("x-powered-by");
   app.set("trust proxy", 1); // behind Nginx
@@ -395,7 +489,7 @@ async function startServer() {
               scriptSrc: ["'self'"],
               styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
               fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-              imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com"],
+              imgSrc: ["'self'", "data:", "blob:", "https://images.unsplash.com", "https://flagcdn.com"],
               connectSrc: ["'self'"],
               objectSrc: ["'none'"],
               frameAncestors: ["'self'"],
@@ -900,7 +994,10 @@ async function startServer() {
     notifyTelegram(
       `💬 <b>${isNewSession ? "Yangi chat boshlandi!" : "Yangi chat xabari!"}</b>\n👤 <b>Mijoz:</b> ${escapeHtml(
         session.name
-      )}\n💬 <b>Xabar:</b> ${escapeHtml(message)}\n\n<i>Admin panelidan javob yozishingiz mumkin.</i>`
+      )}\n💬 <b>Xabar:</b> ${escapeHtml(
+        message
+      )}\n\n<i>Admin panelidan yoki shu xabarga to'g'ridan-to'g'ri Telegram'da "Reply" qilib javob yozishingiz mumkin.</i>`,
+      { type: "chat", id: session.id }
     );
 
     res.json({ success: true, reply });
@@ -954,7 +1051,10 @@ async function startServer() {
         newApt.time
       )}\n🦷 <b>Xizmat:</b> ${escapeHtml(newApt.department)}\n👨‍⚕️ <b>Shifokor:</b> ${escapeHtml(
         newApt.doctor
-      )}\n💬 <b>Izoh:</b> ${escapeHtml(comments || "Yo'q")}`
+      )}\n💬 <b>Izoh:</b> ${escapeHtml(
+        comments || "Yo'q"
+      )}\n\n<i>Shu xabarga "Reply" qilib javob yozsangiz, mijozning ariza yozuviga saqlanadi.</i>`,
+      { type: "appointment", id: newApt.id }
     );
 
     res.status(201).json(newApt);
@@ -969,6 +1069,19 @@ async function startServer() {
     const apt = getRow<any>("appointments", String(id));
     if (!apt) return res.status(404).json({ error: "Ariza topilmadi" });
     apt.status = status;
+    upsertRow("appointments", apt.id, apt, apt.createdAt);
+    res.json(apt);
+  });
+
+  // Admin panel: write a reply/note to an appointment (also visible to admin only,
+  // since there's no direct channel back to the patient other than phone/chat).
+  app.post("/api/admin/appointments/:id/reply", requireAuth, requireRole("admin"), (req, res) => {
+    const text = cleanStr(req.body?.text, 1000);
+    if (!text) return res.status(400).json({ error: "Javob matni bo'sh bo'lishi mumkin emas." });
+    const apt = getRow<any>("appointments", req.params.id);
+    if (!apt) return res.status(404).json({ error: "Ariza topilmadi" });
+    apt.reply = text;
+    apt.replyDate = new Date().toISOString();
     upsertRow("appointments", apt.id, apt, apt.createdAt);
     res.json(apt);
   });
@@ -1004,7 +1117,31 @@ async function startServer() {
       createdAt: new Date().toISOString(),
     };
     upsertRow("reviews", newReview.id, newReview);
+
+    notifyTelegram(
+      `⭐ <b>Yangi izoh (sharh) qoldirildi!</b>\n\n👤 <b>Ism:</b> ${escapeHtml(name)}\n⭐ <b>Baho:</b> ${newReview.rating}/5\n💬 <b>Matn:</b> ${escapeHtml(
+        text
+      )}\n\n<i>Shu xabarga "Reply" qilib javob yozsangiz, saytdagi izohga qo'shiladi.</i>`,
+      { type: "review", id: newReview.id }
+    );
     res.status(201).json(newReview);
+  });
+
+  // Admin panel: write/update a public reply that is shown under the review on the site.
+  app.post("/api/admin/reviews/:id/reply", requireAuth, requireRole("admin"), (req, res) => {
+    const text = cleanStr(req.body?.text, 1000);
+    if (!text) return res.status(400).json({ error: "Javob matni bo'sh bo'lishi mumkin emas." });
+    const review = getRow<any>("reviews", req.params.id);
+    if (!review) return res.status(404).json({ error: "Izoh topilmadi" });
+    review.reply = text;
+    review.replyDate = new Date().toISOString();
+    upsertRow("reviews", review.id, review);
+    res.json(review);
+  });
+
+  app.delete("/api/admin/reviews/:id", requireAuth, requireRole("admin"), (req, res) => {
+    deleteRow("reviews", req.params.id);
+    res.json({ success: true });
   });
 
   // ---------- Analytics (real data, admin only) ----------
