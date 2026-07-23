@@ -908,19 +908,19 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto font-sans text-yellow-200 admin-theme-yellow-black">
+    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto font-sans text-gray-900">
       
       {/* SECURITY GATED LOCK SCREEN */}
       {!isLoggedIn ? (
-        <div className="w-full max-w-md bg-sky-50 border border-sky-200 rounded-3xl p-6 shadow-2xl relative overflow-hidden animate-in zoom-in-95 duration-200">
+        <div className="w-full max-w-md bg-white border border-[#E8EDF5] rounded-3xl p-6 shadow-2xl relative overflow-hidden animate-in zoom-in-95 duration-200">
           <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full blur-2xl"></div>
           
           <div className="text-center mb-6">
             <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
               <Shield className="w-6 h-6 animate-pulse" />
             </div>
-            <h2 className="text-xl font-bold text-black font-display">Dr. Ilhom Dental CMS Control</h2>
-            <p className="text-xs text-black mt-1">
+            <h2 className="text-xl font-bold text-gray-900 font-display">Dr. Ilhom Dental CMS Control</h2>
+            <p className="text-xs text-gray-900 mt-1">
               {!isSetup 
                 ? "Tizimdan foydalanish uchun avval xavfsiz login parol o'rnating."
                 : "Administrator sahifasiga xavfsiz kirish"
@@ -929,8 +929,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
           </div>
 
           {authError && (
-            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 text-xs flex gap-2 items-center mb-4">
-              <AlertTriangle className="w-4 h-4 flex-shrink-0 text-rose-500" />
+            <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs flex gap-2 items-center mb-4">
+              <AlertTriangle className="w-4 h-4 flex-shrink-0 text-red-500" />
               <span>{authError}</span>
             </div>
           )}
@@ -946,30 +946,30 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
           {!isSetup ? (
             <form onSubmit={handleSetupAdmin} className="space-y-4">
               <div>
-                <label className="block text-[10px] uppercase font-mono tracking-wider text-black mb-1.5 font-bold">Yangi Login (Username)</label>
+                <label className="block text-[10px] uppercase font-mono tracking-wider text-gray-500 mb-1.5 font-bold">Yangi Login (Username)</label>
                 <input 
                   type="text" 
                   value={setupUsername} 
                   onChange={(e) => setSetupUsername(e.target.value)} 
                   placeholder="Masalan: admin" 
-                  className="w-full bg-sky-50 border border-sky-300 rounded-xl px-4 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                  className="w-full bg-white border border-[#D6E2F0] rounded-xl px-4 py-3 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase font-mono tracking-wider text-black mb-1.5 font-bold">Yangi Parol (Password)</label>
+                <label className="block text-[10px] uppercase font-mono tracking-wider text-gray-500 mb-1.5 font-bold">Yangi Parol (Password)</label>
                 <input 
                   type="password" 
                   value={setupPassword} 
                   onChange={(e) => setSetupPassword(e.target.value)} 
                   placeholder="••••••••" 
-                  className="w-full bg-sky-50 border border-sky-300 rounded-xl px-4 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                  className="w-full bg-white border border-[#D6E2F0] rounded-xl px-4 py-3 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                 />
               </div>
 
               <button 
                 type="submit"
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs tracking-wide shadow-md shadow-blue-500/10 active:scale-95 transition-all mt-4 cursor-pointer"
+                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs tracking-wide shadow-[0_8px_24px_rgba(37,99,235,0.25)] active:scale-95 transition-all mt-4 cursor-pointer"
               >
                 Login va Parol o'rnatish
               </button>
@@ -978,30 +978,30 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
             /* Login Form */
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-[10px] uppercase font-mono tracking-wider text-black mb-1.5 font-bold">Foydalanuvchi nomi</label>
+                <label className="block text-[10px] uppercase font-mono tracking-wider text-gray-500 mb-1.5 font-bold">Foydalanuvchi nomi</label>
                 <input 
                   type="text" 
                   value={username} 
                   onChange={(e) => setUsername(e.target.value)} 
                   placeholder="admin" 
-                  className="w-full bg-sky-50 border border-sky-300 rounded-xl px-4 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                  className="w-full bg-white border border-[#D6E2F0] rounded-xl px-4 py-3 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase font-mono tracking-wider text-black mb-1.5 font-bold">Maxfiy parol</label>
+                <label className="block text-[10px] uppercase font-mono tracking-wider text-gray-500 mb-1.5 font-bold">Maxfiy parol</label>
                 <input 
                   type="password" 
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)} 
                   placeholder="••••••••" 
-                  className="w-full bg-sky-50 border border-sky-300 rounded-xl px-4 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                  className="w-full bg-white border border-[#D6E2F0] rounded-xl px-4 py-3 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                 />
               </div>
 
               <button 
                 type="submit"
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs tracking-wide shadow-md shadow-blue-500/10 active:scale-95 transition-all mt-4 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs tracking-wide shadow-[0_8px_24px_rgba(37,99,235,0.25)] active:scale-95 transition-all mt-4 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <LogIn className="w-4 h-4" />
                 <span>Xavfsiz Kirish</span>
@@ -1009,30 +1009,30 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
             </form>
           )}
 
-          <div className="mt-6 pt-4 border-t border-sky-200 flex items-center justify-between text-[10px] text-black">
+          <div className="mt-6 pt-4 border-t border-[#E8EDF5] flex items-center justify-between text-[10px] text-gray-500">
             <span className="flex items-center gap-1">
               <Lock className="w-3 h-3 text-emerald-500" />
               <span>SSL Secured Tunnel</span>
             </span>
-            <button onClick={onClose} className="hover:text-black cursor-pointer">Ortga qaytish</button>
+            <button onClick={onClose} className="hover:text-gray-900 cursor-pointer">Ortga qaytish</button>
           </div>
         </div>
       ) : (
         /* FULLY AUTHENTICATED ADMIN DASHBOARD */
-        <div className="w-full max-w-7xl h-[95vh] sm:h-[90vh] bg-sky-50 border border-sky-300 rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
+        <div className="w-full max-w-7xl h-[95vh] sm:h-[90vh] bg-[#F6F8FB] border border-[#E8EDF5] rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
           
           {/* Header */}
-          <div className="p-4 sm:p-6 bg-sky-50 border-b border-sky-200 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="p-4 sm:p-6 bg-white border-b border-[#EEF2F7] flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 shadow-sm">
                 <Shield className="w-5 h-5 animate-pulse" />
               </div>
               <div>
-                <h2 className="text-md sm:text-lg font-bold text-black font-display tracking-tight flex items-center gap-2">
+                <h2 className="text-md sm:text-lg font-bold text-gray-900 font-display tracking-tight flex items-center gap-2">
                   <span>Dr Ilhom CMS & Admin</span>
                   <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold">Authorized</span>
                 </h2>
-                <p className="text-xs text-black hidden sm:block">Klinika ma'lumotlari, xavfsizlik va telegram boshqaruvi</p>
+                <p className="text-xs text-gray-900 hidden sm:block">Klinika ma'lumotlari, xavfsizlik va telegram boshqaruvi</p>
               </div>
             </div>
 
@@ -1056,7 +1056,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-[10px] transition-all font-semibold cursor-pointer ${
                   soundEnabled
                     ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
-                    : 'bg-sky-100 border-sky-300 text-black'
+                    : 'bg-blue-50 border-[#D6E2F0] text-gray-500'
                 }`}
               >
                 {soundEnabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
@@ -1065,14 +1065,14 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
               <button
                 onClick={handleLogout}
-                className="px-3 py-1 rounded-full bg-sky-100 hover:bg-slate-200 border border-sky-300 text-black text-[10px] transition-all font-semibold cursor-pointer"
+                className="px-3 py-1 rounded-full bg-blue-50 hover:bg-blue-100 border border-[#D6E2F0] text-gray-500 text-[10px] transition-all font-semibold cursor-pointer"
               >
                 Chiqish
               </button>
 
               <button 
                 onClick={onClose}
-                className="px-4 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 hover:text-rose-700 transition-all text-xs font-bold cursor-pointer"
+                className="px-4 py-1.5 rounded-full bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 hover:text-red-700 transition-all text-xs font-bold cursor-pointer"
               >
                 Yopish
               </button>
@@ -1080,29 +1080,29 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
           </div>
 
           {/* Navigation Tabs */}
-          <div className="px-4 bg-sky-100 border-b border-sky-200 flex items-center gap-3 sm:gap-6 overflow-x-auto whitespace-nowrap scrollbar-none">
+          <div className="px-4 bg-white border-b border-[#EEF2F7] flex items-center gap-3 sm:gap-6 overflow-x-auto whitespace-nowrap scrollbar-none">
             <button
               onClick={() => setActiveTab('appointments')}
-              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative cursor-pointer text-black ${
-                activeTab === 'appointments' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative cursor-pointer ${
+                activeTab === 'appointments' ? 'border-blue-600 text-gray-900 font-bold' : 'border-transparent text-gray-500 hover:text-blue-600'
               }`}
             >
               Arizalar Queue
               {appointments.filter(a => a.status === 'Pending').length > 0 && (
-                <span className="absolute top-2 right-0 w-1.5 h-1.5 rounded-full bg-yellow-500 animate-ping"></span>
+                <span className="absolute top-2 right-0 w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping"></span>
               )}
             </button>
 
             <button
               onClick={() => setActiveTab('live_chat')}
-              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative flex items-center gap-1.5 cursor-pointer text-black ${
-                activeTab === 'live_chat' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all relative flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'live_chat' ? 'border-blue-600 text-gray-900 font-bold' : 'border-transparent text-gray-500 hover:text-blue-600'
               }`}
             >
               <MessageSquare className="w-3.5 h-3.5 flex-shrink-0" />
               <span>Live Support Chat</span>
               {chatSessions.filter(s => s.unread).length > 0 && (
-                <span className="px-1.5 py-0.5 rounded-full bg-cyan-500 text-[8px] font-black text-slate-950">
+                <span className="px-1.5 py-0.5 rounded-full bg-cyan-500 text-[8px] font-black text-white">
                   {chatSessions.filter(s => s.unread).length}
                 </span>
               )}
@@ -1110,8 +1110,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('site_data')}
-              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
-                activeTab === 'site_data' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'site_data' ? 'border-blue-600 text-gray-900 font-bold' : 'border-transparent text-gray-500 hover:text-blue-600'
               }`}
             >
               <Edit className="w-3.5 h-3.5 flex-shrink-0" />
@@ -1120,8 +1120,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('security')}
-              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer text-black ${
-                activeTab === 'security' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeTab === 'security' ? 'border-blue-600 text-gray-900 font-bold' : 'border-transparent text-gray-500 hover:text-blue-600'
               }`}
             >
               <Shield className="w-3.5 h-3.5 flex-shrink-0" />
@@ -1130,8 +1130,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('reviews')}
-              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
-                activeTab === 'reviews' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer ${
+                activeTab === 'reviews' ? 'border-blue-600 text-gray-900 font-bold' : 'border-transparent text-gray-500 hover:text-blue-600'
               }`}
             >
               Izohlar Moderatsiyasi
@@ -1139,8 +1139,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             <button
               onClick={() => setActiveTab('analytics')}
-              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer text-black ${
-                activeTab === 'analytics' ? 'border-black font-bold' : 'border-transparent opacity-60 hover:opacity-100'
+              className={`flex-shrink-0 whitespace-nowrap py-3 px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer ${
+                activeTab === 'analytics' ? 'border-blue-600 text-gray-900 font-bold' : 'border-transparent text-gray-500 hover:text-blue-600'
               }`}
             >
               Analitika
@@ -1148,13 +1148,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
           </div>
 
           {/* Tab Contents */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-sky-50/50">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#F6F8FB]">
             
             {/* 1. APPOINTMENTS QUEUE */}
             {activeTab === 'appointments' && (
-              <div className="space-y-4 text-black animate-in fade-in duration-200">
+              <div className="space-y-4 text-gray-900 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-black font-display">Tashrif arizalarini boshqarish</h3>
+                  <h3 className="text-sm font-bold text-gray-900 font-display">Tashrif arizalarini boshqarish</h3>
                   <button
                     onClick={fetchQueueData}
                     className="text-xs text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-1 cursor-pointer"
@@ -1170,7 +1170,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                     value={aptSearch}
                     onChange={(e) => { setAptSearch(e.target.value); setAptPage(1); }}
                     placeholder="Qidirish: ism, telefon, shifokor, xizmat..."
-                    className="flex-1 bg-sky-50 border border-sky-300 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 rounded-xl px-4 py-2 text-xs text-black focus:outline-none transition-all"
+                    className="flex-1 bg-white border border-[#D6E2F0] focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-4 py-2 text-xs text-gray-900 focus:outline-none transition-all"
                   />
                   <div className="flex gap-1.5">
                     {(['All', 'Pending', 'Approved', 'Cancelled'] as const).map((st) => (
@@ -1180,7 +1180,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         className={`px-3 py-2 rounded-xl text-[11px] font-bold border transition-all cursor-pointer ${
                           aptStatusFilter === st
                             ? 'bg-blue-600 text-white border-blue-600'
-                            : 'bg-sky-50 text-black border-sky-300 hover:border-blue-300'
+                            : 'bg-white text-gray-900 border-[#D6E2F0] hover:border-blue-300'
                         }`}
                       >
                         {st === 'All' ? 'Barchasi' : st}
@@ -1190,14 +1190,14 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 </div>
 
                 {appointments.length === 0 ? (
-                  <div className="text-center py-12 border border-dashed border-sky-300 rounded-2xl bg-sky-50 shadow-sm">
-                    <p className="text-sm text-black">Arizalar mavjud emas.</p>
+                  <div className="text-center py-12 border border-dashed border-[#D6E2F0] rounded-2xl bg-white shadow-sm">
+                    <p className="text-sm text-gray-900">Arizalar mavjud emas.</p>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto rounded-2xl border border-sky-200 bg-sky-50 shadow-sm">
+                  <div className="overflow-x-auto rounded-2xl border border-[#E8EDF5] bg-white shadow-sm">
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className="bg-sky-50/80 border-b border-sky-200 text-[10px] font-mono tracking-wider text-black uppercase">
+                        <tr className="bg-white/80 border-b border-[#E8EDF5] text-[10px] font-mono tracking-wider text-gray-500 uppercase">
                           <th className="p-4">Bemor</th>
                           <th className="p-4">Telefon</th>
                           <th className="p-4">Sana va Vaqt</th>
@@ -1206,20 +1206,20 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                           <th className="p-4 text-right">Amallar</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100 text-xs">
+                      <tbody className="divide-y divide-[#EEF2F7] text-xs">
                         {pagedAppointments.map((apt) => (
-                          <tr key={apt.id} className="hover:bg-sky-50/50 transition-colors">
-                            <td className="p-4 font-semibold text-black min-w-[220px]">
+                          <tr key={apt.id} className="hover:bg-white/50 transition-colors">
+                            <td className="p-4 font-semibold text-gray-900 min-w-[220px]">
                               <div>{apt.name}</div>
                               {apt.comments && (
-                                <div className="text-xs text-black mt-1 font-normal max-w-xs truncate italic">
+                                <div className="text-xs text-gray-900 mt-1 font-normal max-w-xs truncate italic">
                                   "{apt.comments}"
                                 </div>
                               )}
                               {apt.reply && (
-                                <div className="mt-2 pl-2 border-l-2 border-sky-400 bg-sky-50 rounded-r-lg py-1 px-2">
-                                  <span className="block text-[9px] font-bold text-sky-600 uppercase tracking-wide">Javobingiz</span>
-                                  <span className="text-[11px] text-black">{apt.reply}</span>
+                                <div className="mt-2 pl-2 border-l-2 border-blue-600 bg-white rounded-r-lg py-1 px-2">
+                                  <span className="block text-[9px] font-bold text-blue-600 uppercase tracking-wide">Javobingiz</span>
+                                  <span className="text-[11px] text-gray-900">{apt.reply}</span>
                                 </div>
                               )}
                               <div className="mt-2 flex gap-1">
@@ -1229,34 +1229,34 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   onChange={(e) => setAptReplyDrafts(prev => ({ ...prev, [apt.id]: e.target.value }))}
                                   onKeyDown={(e) => { if (e.key === 'Enter') sendAptReply(apt.id); }}
                                   placeholder={apt.reply ? "Javobni yangilash..." : "Javob yozish..."}
-                                  className="flex-1 bg-sky-50 border border-sky-300 focus:border-sky-400 rounded-lg px-2 py-1 text-[11px] text-black focus:outline-none"
+                                  className="flex-1 bg-white border border-[#D6E2F0] focus:border-blue-600 rounded-lg px-2 py-1 text-[11px] text-gray-900 focus:outline-none"
                                 />
                                 <button
                                   onClick={() => sendAptReply(apt.id)}
-                                  className="px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-[11px] font-bold transition-colors cursor-pointer"
+                                  className="px-2 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold transition-colors cursor-pointer"
                                 >
                                   OK
                                 </button>
                               </div>
                             </td>
-                            <td className="p-4 font-mono text-black">{apt.phone}</td>
-                            <td className="p-4 text-black">
+                            <td className="p-4 font-mono text-gray-900">{apt.phone}</td>
+                            <td className="p-4 text-gray-900">
                               <span className="block font-medium">{apt.date}</span>
-                              <span className="text-[10px] font-mono text-black">{apt.time}</span>
+                              <span className="text-[10px] font-mono text-gray-500">{apt.time}</span>
                             </td>
-                            <td className="p-4 text-black">
+                            <td className="p-4 text-gray-900">
                               <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-100 text-[11px] font-medium">
                                 {apt.department}
                               </span>
-                              <span className="block text-[10px] text-black mt-1">{apt.doctor}</span>
+                              <span className="block text-[10px] text-gray-500 mt-1">{apt.doctor}</span>
                             </td>
                             <td className="p-4">
                               <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${
                                 apt.status === 'Approved' 
                                   ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' 
                                   : apt.status === 'Pending' 
-                                  ? 'bg-yellow-50 text-yellow-700 border border-yellow-100' 
-                                  : 'bg-rose-50 text-rose-700 border border-rose-100'
+                                  ? 'bg-amber-50 text-amber-700 border border-amber-100'
+                                  : 'bg-red-50 text-red-700 border border-red-200'
                               }`}>
                                 {apt.status}
                               </span>
@@ -1272,7 +1272,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   </button>
                                   <button
                                     onClick={() => handleUpdateStatus(apt.id, 'Cancelled')}
-                                    className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 transition-all cursor-pointer"
+                                    className="p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-all cursor-pointer"
                                   >
                                     <X className="w-3.5 h-3.5" />
                                   </button>
@@ -1280,7 +1280,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               )}
                               <button
                                 onClick={() => handleDeleteAppointment(apt.id)}
-                                className="p-1.5 rounded-lg bg-sky-50 hover:bg-rose-50 hover:text-rose-600 text-black transition-all cursor-pointer"
+                                className="p-1.5 rounded-lg bg-white hover:bg-red-50 hover:text-red-600 text-gray-900 transition-all cursor-pointer"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
@@ -1289,7 +1289,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         ))}
                         {pagedAppointments.length === 0 && (
                           <tr>
-                            <td colSpan={6} className="p-8 text-center text-black text-xs">
+                            <td colSpan={6} className="p-8 text-center text-gray-900 text-xs">
                               Qidiruv yoki filter bo'yicha ariza topilmadi.
                             </td>
                           </tr>
@@ -1299,22 +1299,22 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                     {/* Pagination */}
                     {aptTotalPages > 1 && (
-                      <div className="flex items-center justify-between px-4 py-3 border-t border-sky-200 bg-sky-50/60">
-                        <span className="text-[10px] text-black font-mono">
+                      <div className="flex items-center justify-between px-4 py-3 border-t border-[#E8EDF5] bg-white/60">
+                        <span className="text-[10px] text-gray-500 font-mono">
                           {filteredAppointments.length} ta ariza · {Math.min(aptPage, aptTotalPages)}/{aptTotalPages}-sahifa
                         </span>
                         <div className="flex gap-1">
                           <button
                             onClick={() => setAptPage((p) => Math.max(1, p - 1))}
                             disabled={Math.min(aptPage, aptTotalPages) <= 1}
-                            className="px-3 py-1.5 rounded-lg bg-sky-50 border border-sky-300 text-black text-[11px] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-blue-300 transition-all cursor-pointer"
+                            className="px-3 py-1.5 rounded-lg bg-white border border-[#D6E2F0] text-gray-900 text-[11px] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-blue-300 transition-all cursor-pointer"
                           >
                             Oldingi
                           </button>
                           <button
                             onClick={() => setAptPage((p) => Math.min(aptTotalPages, p + 1))}
                             disabled={Math.min(aptPage, aptTotalPages) >= aptTotalPages}
-                            className="px-3 py-1.5 rounded-lg bg-sky-50 border border-sky-300 text-black text-[11px] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-blue-300 transition-all cursor-pointer"
+                            className="px-3 py-1.5 rounded-lg bg-white border border-[#D6E2F0] text-gray-900 text-[11px] font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-blue-300 transition-all cursor-pointer"
                           >
                             Keyingi
                           </button>
@@ -1328,17 +1328,17 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
             {/* 2. DYNAMIC CONTENT SITE EDITOR */}
             {activeTab === 'site_data' && (
-              <div className="space-y-6 text-black animate-in fade-in duration-200">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-sky-50 p-6 rounded-2xl border border-sky-200 shadow-sm">
+              <div className="space-y-6 text-gray-900 animate-in fade-in duration-200">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-[#E8EDF5] shadow-sm">
                   <div>
-                    <h3 className="text-base font-bold text-black font-display">Tahrirlash va Media Markazi</h3>
-                    <p className="text-xs text-black mt-1">Matnlarni uch tilda optimallashtirilgan rejimda tahrirlang va kompyuteringizdan rasm yuklang.</p>
+                    <h3 className="text-base font-bold text-gray-900 font-display">Tahrirlash va Media Markazi</h3>
+                    <p className="text-xs text-gray-900 mt-1">Matnlarni uch tilda optimallashtirilgan rejimda tahrirlang va kompyuteringizdan rasm yuklang.</p>
                   </div>
                   
                   {/* Save Button */}
                   <button
                     onClick={handleSaveCMSData}
-                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-md shadow-blue-500/10 active:scale-95 cursor-pointer"
+                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-[0_8px_24px_rgba(37,99,235,0.25)] active:scale-95 cursor-pointer"
                   >
                     <Save className="w-4 h-4" />
                     <span>O'zgarishlarni Saqlash</span>
@@ -1353,15 +1353,15 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 )}
 
                 {/* 3-LANGUAGE SELECTION OPTIMIZER HEADER */}
-                <div className="bg-sky-100/80 p-1.5 rounded-2xl flex gap-1.5 max-w-md">
+                <div className="bg-[#F1F5F9] p-1.5 rounded-2xl flex gap-1.5 max-w-md">
                   {(['uz', 'en', 'ru'] as const).map((langKey) => (
                     <button
                       key={langKey}
                       onClick={() => setCmsLanguage(langKey)}
                       className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
-                        cmsLanguage === langKey 
-                          ? 'bg-sky-50 text-blue-600 shadow-sm' 
-                          : 'text-black hover:bg-sky-50/40'
+                        cmsLanguage === langKey
+                          ? 'bg-blue-600 text-white shadow-sm'
+                          : 'text-gray-600 hover:bg-blue-50'
                       }`}
                     >
                       <span>
@@ -1377,9 +1377,9 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   <div className="lg:col-span-7 space-y-6">
                     
                     {/* Services Editor */}
-                    <div className="p-6 rounded-2xl bg-sky-50 border border-sky-200 shadow-sm space-y-4">
-                      <div className="flex items-center justify-between border-b border-sky-100 pb-3">
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold flex items-center gap-2">
+                    <div className="p-6 rounded-2xl bg-white border border-[#E8EDF5] shadow-sm space-y-4">
+                      <div className="flex items-center justify-between border-b border-[#EEF2F7] pb-3">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold flex items-center gap-2">
                           <Layers className="w-4 h-4 text-blue-500" />
                           <span>Xizmatlar va Narxlar ({cmsLanguage.toUpperCase()})</span>
                         </h4>
@@ -1394,16 +1394,16 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                       <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
                         {services.map((serv) => (
-                          <div key={serv.id} className="p-4 bg-sky-50/50 hover:bg-sky-50 border border-sky-200 rounded-xl flex flex-col gap-3 transition-colors relative">
+                          <div key={serv.id} className="p-4 bg-white/50 hover:bg-white border border-[#E8EDF5] rounded-xl flex flex-col gap-3 transition-colors relative">
                             <div className="flex items-center justify-between">
-                              <span className="font-bold text-xs text-black">
+                              <span className="font-bold text-xs text-gray-900">
                                 {translations[cmsLanguage]?.[serv.titleKey] || serv.titleKey}
                               </span>
                               <div className="flex items-center gap-2">
-                                <span className="text-[10px] text-black font-mono bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200">ID: {serv.id}</span>
+                                <span className="text-[10px] text-gray-500 font-mono bg-white px-2 py-0.5 rounded-md border border-[#E8EDF5]">ID: {serv.id}</span>
                                 <button
                                   onClick={() => handleDeleteService(serv.id)}
-                                  className="p-1 rounded bg-rose-50 hover:bg-rose-100 text-rose-600 transition-colors cursor-pointer"
+                                  className="p-1 rounded bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
                                   title="Xizmatni o'chirish"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -1415,7 +1415,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
                                 <img 
                                   src={serv.image || ServiceImageMap[serv.id] || "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=400"} 
-                                  className="w-16 h-12 object-cover rounded-lg border border-sky-300 bg-sky-50 shadow-sm" 
+                                  className="w-16 h-12 object-cover rounded-lg border border-[#D6E2F0] bg-white shadow-sm" 
                                   referrerPolicy="no-referrer"
                                   onError={(e) => {
                                     const target = e.target as HTMLImageElement;
@@ -1439,17 +1439,17 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                               <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[9px] text-black mb-1 uppercase font-mono font-semibold">Boshlang'ich Narxi (UZS)</label>
+                                  <label className="block text-[9px] text-gray-500 mb-1 uppercase font-mono font-semibold">Boshlang'ich Narxi (UZS)</label>
                                   <input 
                                     type="number" 
                                     value={serv.priceFrom} 
                                     onChange={(e) => handleEditService(serv.id, 'priceFrom', Number(e.target.value))}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-blue-600 transition-colors"
                                   />
                                 </div>
                                 
                                 <div>
-                                  <label className="block text-[9px] text-black mb-1 uppercase font-mono font-semibold">Xizmat nomi ({cmsLanguage.toUpperCase()})</label>
+                                  <label className="block text-[9px] text-gray-500 mb-1 uppercase font-mono font-semibold">Xizmat nomi ({cmsLanguage.toUpperCase()})</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.[serv.titleKey] || ""} 
@@ -1462,14 +1462,14 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-blue-600 transition-colors"
                                   />
                                 </div>
                               </div>
                             </div>
 
                             <div>
-                              <label className="block text-[9px] text-black mb-1 uppercase font-mono font-semibold">Xizmat tavsifi ({cmsLanguage.toUpperCase()})</label>
+                              <label className="block text-[9px] text-gray-500 mb-1 uppercase font-mono font-semibold">Xizmat tavsifi ({cmsLanguage.toUpperCase()})</label>
                               <textarea 
                                 rows={2}
                                 value={translations[cmsLanguage]?.[serv.descKey] || ""} 
@@ -1482,17 +1482,17 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                     return updated;
                                   });
                                 }}
-                                className="w-full bg-sky-50 border border-sky-300 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:border-blue-500 transition-colors"
+                                className="w-full bg-white border border-[#D6E2F0] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-blue-600 transition-colors"
                               />
                             </div>
 
                             <div>
-                              <label className="text-[8px] text-black block uppercase font-mono font-semibold mb-1">Background Rasm URL</label>
+                              <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold mb-1">Background Rasm URL</label>
                               <input 
                                 type="text" 
                                 value={serv.image || ServiceImageMap[serv.id] || ""} 
                                 onChange={(e) => setServices(prev => prev.map(s => s.id === serv.id ? { ...s, image: e.target.value } : s))}
-                                className="w-full bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5 text-[10px] text-black focus:outline-none font-mono"
+                                className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2.5 py-1.5 text-[10px] text-gray-500 focus:outline-none font-mono"
                               />
                             </div>
                           </div>
@@ -1501,9 +1501,9 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                     </div>
 
                     {/* Doctors Editor */}
-                    <div className="p-6 rounded-2xl bg-sky-50 border border-sky-200 shadow-sm space-y-4">
-                      <div className="flex items-center justify-between border-b border-sky-100 pb-3">
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold flex items-center gap-2">
+                    <div className="p-6 rounded-2xl bg-white border border-[#E8EDF5] shadow-sm space-y-4">
+                      <div className="flex items-center justify-between border-b border-[#EEF2F7] pb-3">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold flex items-center gap-2">
                           <Users className="w-4 h-4 text-blue-500" />
                           <span>Shifokorlar va Foto yuklagich ({cmsLanguage.toUpperCase()})</span>
                         </h4>
@@ -1518,14 +1518,14 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                       <div className="space-y-4 max-h-[420px] overflow-y-auto pr-1">
                         {doctors.map((doc) => (
-                          <div key={doc.id} className="p-4 bg-sky-50/50 hover:bg-sky-50 border border-sky-200 rounded-xl space-y-3 transition-colors relative">
+                          <div key={doc.id} className="p-4 bg-white/50 hover:bg-white border border-[#E8EDF5] rounded-xl space-y-3 transition-colors relative">
                             <div className="flex items-center justify-between">
-                              <span className="font-bold text-xs text-black">
+                              <span className="font-bold text-xs text-gray-900">
                                 {doc.name}
                               </span>
                               <button
                                 onClick={() => handleDeleteDoctor(doc.id)}
-                                className="p-1 rounded bg-rose-50 hover:bg-rose-100 text-rose-600 transition-colors cursor-pointer"
+                                className="p-1 rounded bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
                                 title="Xodimni o'chirish"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
@@ -1534,7 +1534,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                             <div className="flex flex-col sm:flex-row gap-4">
                               <div className="flex flex-col items-center gap-2">
-                                <img src={doc.image} className="w-14 h-14 object-cover rounded-2xl border border-sky-300 bg-sky-50" />
+                                <img src={doc.image} className="w-14 h-14 object-cover rounded-2xl border border-[#D6E2F0] bg-white" />
                                 
                                 {/* Photo Upload Trigger */}
                                 <label className="relative cursor-pointer">
@@ -1554,16 +1554,16 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <div className="flex-1 space-y-2">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                   <div>
-                                    <label className="text-[8px] text-black block uppercase font-mono font-semibold">Doktor ismi</label>
+                                    <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold">Doktor ismi</label>
                                     <input 
                                       type="text" 
                                       value={doc.name} 
                                       onChange={(e) => setDoctors(prev => prev.map(d => d.id === doc.id ? { ...d, name: e.target.value } : d))}
-                                      className="w-full bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5 text-xs text-black focus:outline-none focus:border-blue-500"
+                                      className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none focus:border-blue-600"
                                     />
                                   </div>
                                   <div>
-                                    <label className="text-[8px] text-black block uppercase font-mono font-semibold">Mutaxassisligi ({cmsLanguage.toUpperCase()})</label>
+                                    <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold">Mutaxassisligi ({cmsLanguage.toUpperCase()})</label>
                                     <input 
                                       type="text" 
                                       value={translations[cmsLanguage]?.[doc.specializationKey] || ""} 
@@ -1576,23 +1576,23 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                           return updated;
                                         });
                                       }}
-                                      className="w-full bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5 text-xs text-black focus:outline-none focus:border-blue-500"
+                                      className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none focus:border-blue-600"
                                     />
                                   </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-3">
                                   <div>
-                                    <label className="text-[8px] text-black block uppercase font-mono font-semibold">Tajribasi (yil)</label>
+                                    <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold">Tajribasi (yil)</label>
                                     <input 
                                       type="number" 
                                       value={doc.experience} 
                                       onChange={(e) => setDoctors(prev => prev.map(d => d.id === doc.id ? { ...d, experience: Number(e.target.value) } : d))}
-                                      className="w-full bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5 text-xs text-black focus:outline-none focus:border-blue-500"
+                                      className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none focus:border-blue-600"
                                     />
                                   </div>
                                   <div>
-                                    <label className="text-[8px] text-black block uppercase font-mono font-semibold">Mutaxassisligi ID</label>
+                                    <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold">Mutaxassisligi ID</label>
                                     <span className="text-[10px] text-blue-600 font-mono block mt-1">{doc.specializationKey}</span>
                                   </div>
                                 </div>
@@ -1600,12 +1600,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             </div>
                             
                             <div>
-                              <label className="text-[8px] text-black block uppercase font-mono font-semibold">Rasm URL manzili</label>
+                              <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold">Rasm URL manzili</label>
                               <input 
                                 type="text" 
                                 value={doc.image} 
                                 onChange={(e) => setDoctors(prev => prev.map(d => d.id === doc.id ? { ...d, image: e.target.value } : d))}
-                                className="w-full bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5 text-[10px] text-black focus:outline-none font-mono"
+                                className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2.5 py-1.5 text-[10px] text-gray-500 focus:outline-none font-mono"
                               />
                             </div>
                           </div>
@@ -1619,19 +1619,19 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   <div className="lg:col-span-5 space-y-6">
 
                     {/* Logo & Security Card */}
-                    <div className="p-6 rounded-2xl bg-sky-50 border border-sky-200 shadow-sm space-y-4">
-                      <div className="flex items-center gap-2 border-b border-sky-100 pb-3">
+                    <div className="p-6 rounded-2xl bg-white border border-[#E8EDF5] shadow-sm space-y-4">
+                      <div className="flex items-center gap-2 border-b border-[#EEF2F7] pb-3">
                         <Settings className="w-4 h-4 text-amber-500" />
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold">
                           Klinika Logotipi & Admin Paroli
                         </h4>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Logo Uploading Widget */}
-                        <div className="space-y-2 border border-sky-200 p-3 rounded-xl bg-sky-50/50">
-                          <label className="block text-[8px] text-black uppercase font-mono font-bold">Klinika Logotipi (Logo)</label>
-                          <div className="relative w-16 h-16 rounded-full overflow-hidden border border-sky-300 bg-sky-50 mx-auto shadow-sm">
+                        <div className="space-y-2 border border-[#E8EDF5] p-3 rounded-xl bg-white/50">
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-bold">Klinika Logotipi (Logo)</label>
+                          <div className="relative w-16 h-16 rounded-full overflow-hidden border border-[#D6E2F0] bg-white mx-auto shadow-sm">
                             <img src={logo || "/src/assets/images/gold_tooth_logo_1784383827217.jpg"} className="w-full h-full object-cover" />
                             {uploadingId === "logo" && (
                               <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
@@ -1655,22 +1655,22 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
 
                         {/* Password Changer Form */}
-                        <form onSubmit={handleUpdatePassword} className="space-y-2 border border-sky-200 p-3 rounded-xl bg-sky-50/50 flex flex-col justify-between">
+                        <form onSubmit={handleUpdatePassword} className="space-y-2 border border-[#E8EDF5] p-3 rounded-xl bg-white/50 flex flex-col justify-between">
                           <div>
-                            <label className="block text-[8px] text-black uppercase font-mono font-bold mb-1">Admin Parolini O'zgartirish</label>
+                            <label className="block text-[8px] text-gray-500 uppercase font-mono font-bold mb-1">Admin Parolini O'zgartirish</label>
                             <input 
                               type="text" 
                               value={newAdminUsername}
                               onChange={(e) => setNewAdminUsername(e.target.value)}
                               placeholder="Login (username)"
-                              className="w-full bg-sky-50 border border-sky-300 rounded-lg px-2 py-1 text-[10px] text-black focus:outline-none mb-1.5"
+                              className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2 py-1 text-[10px] text-gray-500 focus:outline-none mb-1.5"
                             />
                             <input 
                               type="password" 
                               value={newAdminPassword}
                               onChange={(e) => setNewAdminPassword(e.target.value)}
                               placeholder="Yangi parol..."
-                              className="w-full bg-sky-50 border border-sky-300 rounded-lg px-2 py-1 text-[10px] text-black focus:outline-none"
+                              className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2 py-1 text-[10px] text-gray-500 focus:outline-none"
                             />
                           </div>
 
@@ -1686,24 +1686,24 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       </div>
 
                       {pwdMsg && (
-                        <div className={`p-2 rounded-lg text-[10px] font-bold ${pwdMsg.startsWith('✅') ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-rose-50 text-rose-600 border border-rose-100'}`}>
+                        <div className={`p-2 rounded-lg text-[10px] font-bold ${pwdMsg.startsWith('✅') ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-200'}`}>
                           {pwdMsg}
                         </div>
                       )}
                     </div>
                     
                     {/* Key Translations Form */}
-                    <div className="p-6 rounded-2xl bg-sky-50 border border-sky-200 shadow-sm space-y-4">
-                      <div className="flex items-center gap-2 border-b border-sky-100 pb-3">
+                    <div className="p-6 rounded-2xl bg-white border border-[#E8EDF5] shadow-sm space-y-4">
+                      <div className="flex items-center gap-2 border-b border-[#EEF2F7] pb-3">
                         <Globe className="w-4 h-4 text-blue-500" />
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold">
                           <span>Asosiy Matnlar ({cmsLanguage.toUpperCase()})</span>
                         </h4>
                       </div>
 
                       <div className="space-y-4">
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Klinika nomi / Brend sarlavhasi</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Klinika nomi / Brend sarlavhasi</label>
                           <input 
                             type="text" 
                             value={translations[cmsLanguage]?.clinic_title || ""} 
@@ -1716,12 +1716,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                 return updated;
                               });
                             }}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Hero Bosh Sarlavha (Katta matn)</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Hero Bosh Sarlavha (Katta matn)</label>
                           <textarea 
                             rows={2}
                             value={translations[cmsLanguage]?.hero_title || ""} 
@@ -1734,12 +1734,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                 return updated;
                               });
                             }}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all leading-relaxed"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all leading-relaxed"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Hero Sub-Sarlavha (Kichik matn)</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Hero Sub-Sarlavha (Kichik matn)</label>
                           <textarea 
                             rows={3}
                             value={translations[cmsLanguage]?.hero_subtitle || ""} 
@@ -1752,12 +1752,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                 return updated;
                               });
                             }}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all leading-relaxed"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all leading-relaxed"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Klinika manzili</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Klinika manzili</label>
                           <input 
                             type="text" 
                             value={translations[cmsLanguage]?.contact_address || ""} 
@@ -1770,12 +1770,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                 return updated;
                               });
                             }}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Kafolat va Sertifikatlar matni</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Kafolat va Sertifikatlar matni</label>
                           <input 
                             type="text" 
                             value={translations[cmsLanguage]?.footer_rights || ""} 
@@ -1788,16 +1788,16 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                 return updated;
                               });
                             }}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                           />
                         </div>
 
                         {/* Biz Haqimizda Bo'limi Matnlari */}
-                        <div className="border-t border-sky-200 pt-4 mt-4 space-y-4">
-                          <h5 className="text-[10px] font-bold text-black uppercase font-mono tracking-wider">"Biz Haqimizda" Bo'limi</h5>
+                        <div className="border-t border-[#E8EDF5] pt-4 mt-4 space-y-4">
+                          <h5 className="text-[10px] font-bold text-gray-500 uppercase font-mono tracking-wider">"Biz Haqimizda" Bo'limi</h5>
                           
                           <div>
-                            <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Bo'lim Sarlavhasi (About Title)</label>
+                            <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Bo'lim Sarlavhasi (About Title)</label>
                             <input 
                               type="text" 
                               value={translations[cmsLanguage]?.about_title || ""} 
@@ -1810,12 +1810,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   return updated;
                                 });
                               }}
-                              className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                              className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Bo'lim Sub-Sarlavhasi (About Subtitle)</label>
+                            <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Bo'lim Sub-Sarlavhasi (About Subtitle)</label>
                             <textarea 
                               rows={2}
                               value={translations[cmsLanguage]?.about_subtitle || ""} 
@@ -1828,12 +1828,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   return updated;
                                 });
                               }}
-                              className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all leading-relaxed"
+                              className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all leading-relaxed"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Asosiy Tavsif Matni (About Text)</label>
+                            <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Asosiy Tavsif Matni (About Text)</label>
                             <textarea 
                               rows={3}
                               value={translations[cmsLanguage]?.about_text || ""} 
@@ -1846,13 +1846,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   return updated;
                                 });
                               }}
-                              className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all leading-relaxed"
+                              className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all leading-relaxed"
                             />
                           </div>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
-                              <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Afzallik 1 (Point 1)</label>
+                              <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Afzallik 1 (Point 1)</label>
                               <input 
                                 type="text" 
                                 value={translations[cmsLanguage]?.about_point_1 || ""} 
@@ -1865,11 +1865,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                     return updated;
                                   });
                                 }}
-                                className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                                className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                               />
                             </div>
                             <div>
-                              <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Afzallik 2 (Point 2)</label>
+                              <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Afzallik 2 (Point 2)</label>
                               <input 
                                 type="text" 
                                 value={translations[cmsLanguage]?.about_point_2 || ""} 
@@ -1882,11 +1882,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                     return updated;
                                   });
                                 }}
-                                className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                                className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                               />
                             </div>
                             <div>
-                              <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Afzallik 3 (Point 3)</label>
+                              <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Afzallik 3 (Point 3)</label>
                               <input 
                                 type="text" 
                                 value={translations[cmsLanguage]?.about_point_3 || ""} 
@@ -1899,11 +1899,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                     return updated;
                                   });
                                 }}
-                                className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                                className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                               />
                             </div>
                             <div>
-                              <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Afzallik 4 (Point 4)</label>
+                              <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Afzallik 4 (Point 4)</label>
                               <input 
                                 type="text" 
                                 value={translations[cmsLanguage]?.about_point_4 || ""} 
@@ -1916,13 +1916,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                     return updated;
                                   });
                                 }}
-                                className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                                className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                               />
                             </div>
                           </div>
 
                           <div>
-                            <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Tugma matni (About Button)</label>
+                            <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Tugma matni (About Button)</label>
                             <input 
                               type="text" 
                               value={translations[cmsLanguage]?.about_more_btn || ""} 
@@ -1935,22 +1935,22 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                   return updated;
                                 });
                               }}
-                              className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:bg-sky-50 focus:border-blue-500 transition-all"
+                              className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:bg-white focus:border-blue-600 transition-all"
                             />
                           </div>
                         </div>
 
                         {/* Bo'lim Sarlavhalari (Section Titles) */}
-                        <div className="border-t border-sky-200 pt-4 mt-4 space-y-4">
-                          <h5 className="text-[10px] font-bold text-black uppercase font-mono tracking-wider">Bo'lim Sarlavhalari (Section Titles & Subtitles)</h5>
+                        <div className="border-t border-[#E8EDF5] pt-4 mt-4 space-y-4">
+                          <h5 className="text-[10px] font-bold text-gray-500 uppercase font-mono tracking-wider">Bo'lim Sarlavhalari (Section Titles & Subtitles)</h5>
 
                           <div className="grid grid-cols-1 gap-4">
                             {/* Xizmatlar */}
-                            <div className="border border-sky-200 p-2.5 rounded-xl bg-sky-50/30 space-y-2">
-                              <span className="block text-[9px] font-bold text-black uppercase font-mono">Xizmatlar bo'limi</span>
+                            <div className="border border-[#E8EDF5] p-2.5 rounded-xl bg-white/30 space-y-2">
+                              <span className="block text-[9px] font-bold text-gray-500 uppercase font-mono">Xizmatlar bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Sarlavha (services_title)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Sarlavha (services_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.services_title || ""} 
@@ -1963,11 +1963,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Izoh (services_subtitle)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Izoh (services_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.services_subtitle || ""} 
@@ -1980,18 +1980,18 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                               </div>
                             </div>
 
                             {/* Shifokorlar */}
-                            <div className="border border-sky-200 p-2.5 rounded-xl bg-sky-50/30 space-y-2">
-                              <span className="block text-[9px] font-bold text-black uppercase font-mono">Shifokorlar bo'limi</span>
+                            <div className="border border-[#E8EDF5] p-2.5 rounded-xl bg-white/30 space-y-2">
+                              <span className="block text-[9px] font-bold text-gray-500 uppercase font-mono">Shifokorlar bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Sarlavha (doctors_title)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Sarlavha (doctors_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.doctors_title || ""} 
@@ -2004,11 +2004,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Izoh (doctors_subtitle)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Izoh (doctors_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.doctors_subtitle || ""} 
@@ -2021,18 +2021,18 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                               </div>
                             </div>
 
                             {/* Galereya */}
-                            <div className="border border-sky-200 p-2.5 rounded-xl bg-sky-50/30 space-y-2">
-                              <span className="block text-[9px] font-bold text-black uppercase font-mono">Galereya bo'limi</span>
+                            <div className="border border-[#E8EDF5] p-2.5 rounded-xl bg-white/30 space-y-2">
+                              <span className="block text-[9px] font-bold text-gray-500 uppercase font-mono">Galereya bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Sarlavha (gallery_title)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Sarlavha (gallery_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.gallery_title || ""} 
@@ -2045,11 +2045,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Izoh (gallery_subtitle)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Izoh (gallery_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.gallery_subtitle || ""} 
@@ -2062,18 +2062,18 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                               </div>
                             </div>
 
                             {/* Izohlar */}
-                            <div className="border border-sky-200 p-2.5 rounded-xl bg-sky-50/30 space-y-2">
-                              <span className="block text-[9px] font-bold text-black uppercase font-mono">Izohlar bo'limi</span>
+                            <div className="border border-[#E8EDF5] p-2.5 rounded-xl bg-white/30 space-y-2">
+                              <span className="block text-[9px] font-bold text-gray-500 uppercase font-mono">Izohlar bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Sarlavha (reviews_title)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Sarlavha (reviews_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.reviews_title || ""} 
@@ -2086,11 +2086,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Izoh (reviews_subtitle)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Izoh (reviews_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.reviews_subtitle || ""} 
@@ -2103,18 +2103,18 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                               </div>
                             </div>
 
                             {/* Qabulga yozilish */}
-                            <div className="border border-sky-200 p-2.5 rounded-xl bg-sky-50/30 space-y-2">
-                              <span className="block text-[9px] font-bold text-black uppercase font-mono">Qabulga yozilish bo'limi</span>
+                            <div className="border border-[#E8EDF5] p-2.5 rounded-xl bg-white/30 space-y-2">
+                              <span className="block text-[9px] font-bold text-gray-500 uppercase font-mono">Qabulga yozilish bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Sarlavha (booking_title)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Sarlavha (booking_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.booking_title || ""} 
@@ -2127,11 +2127,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Izoh (booking_subtitle)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Izoh (booking_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.booking_subtitle || ""} 
@@ -2144,18 +2144,18 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                               </div>
                             </div>
 
                             {/* Aloqa */}
-                            <div className="border border-sky-200 p-2.5 rounded-xl bg-sky-50/30 space-y-2">
-                              <span className="block text-[9px] font-bold text-black uppercase font-mono">Aloqa bo'limi</span>
+                            <div className="border border-[#E8EDF5] p-2.5 rounded-xl bg-white/30 space-y-2">
+                              <span className="block text-[9px] font-bold text-gray-500 uppercase font-mono">Aloqa bo'limi</span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Sarlavha (contact_title)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Sarlavha (contact_title)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.contact_title || ""} 
@@ -2168,11 +2168,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-[7px] text-black uppercase font-mono">Izoh (contact_subtitle)</label>
+                                  <label className="block text-[7px] text-gray-900 uppercase font-mono">Izoh (contact_subtitle)</label>
                                   <input 
                                     type="text" 
                                     value={translations[cmsLanguage]?.contact_subtitle || ""} 
@@ -2185,7 +2185,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                                         return updated;
                                       });
                                     }}
-                                    className="w-full bg-sky-50 border border-sky-300 rounded px-2 py-1 text-xs text-black focus:outline-none"
+                                    className="w-full bg-white border border-[#D6E2F0] rounded px-2 py-1 text-xs text-gray-900 focus:outline-none"
                                   />
                                 </div>
                               </div>
@@ -2197,77 +2197,77 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                     </div>
 
                     {/* Social Network / Contact URLs Section */}
-                    <div className="p-6 rounded-2xl bg-sky-50 border border-sky-200 shadow-sm space-y-4 text-left">
-                      <div className="flex items-center gap-2 border-b border-sky-100 pb-3">
+                    <div className="p-6 rounded-2xl bg-white border border-[#E8EDF5] shadow-sm space-y-4 text-left">
+                      <div className="flex items-center gap-2 border-b border-[#EEF2F7] pb-3">
                         <Settings className="w-4 h-4 text-amber-500" />
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold">
                           Aloqa & Ijtimoiy Tarmoq Manzillari (URLs)
                         </h4>
                       </div>
 
-                      <div className="space-y-3.5 text-xs text-black">
+                      <div className="space-y-3.5 text-xs text-gray-900">
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Telegram Havolasi (URL / Username)</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Telegram Havolasi (URL / Username)</label>
                           <input 
                             type="text" 
                             value={contacts?.telegram || ""} 
                             onChange={(e) => setContacts((prev: any) => ({ ...prev, telegram: e.target.value }))}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs font-mono text-black focus:outline-none focus:bg-sky-50 focus:border-amber-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs font-mono text-gray-900 focus:outline-none focus:bg-white focus:border-amber-500 transition-all"
                             placeholder="https://t.me/dr_ilhom_dental"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Instagram Havolasi (URL)</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Instagram Havolasi (URL)</label>
                           <input 
                             type="text" 
                             value={contacts?.instagram || ""} 
                             onChange={(e) => setContacts((prev: any) => ({ ...prev, instagram: e.target.value }))}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs font-mono text-black focus:outline-none focus:bg-sky-50 focus:border-amber-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs font-mono text-gray-900 focus:outline-none focus:bg-white focus:border-amber-500 transition-all"
                             placeholder="https://instagram.com/dr_ilhom_dental"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">WhatsApp Havolasi (URL / Telefon)</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">WhatsApp Havolasi (URL / Telefon)</label>
                           <input 
                             type="text" 
                             value={contacts?.whatsapp || ""} 
                             onChange={(e) => setContacts((prev: any) => ({ ...prev, whatsapp: e.target.value }))}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs font-mono text-black focus:outline-none focus:bg-sky-50 focus:border-amber-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs font-mono text-gray-900 focus:outline-none focus:bg-white focus:border-amber-500 transition-all"
                             placeholder="https://wa.me/998906134666"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Asosiy Telefon raqami</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Asosiy Telefon raqami</label>
                           <input 
                             type="text" 
                             value={contacts?.phone || ""} 
                             onChange={(e) => setContacts((prev: any) => ({ ...prev, phone: e.target.value }))}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs font-mono text-black focus:outline-none focus:bg-sky-50 focus:border-amber-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs font-mono text-gray-900 focus:outline-none focus:bg-white focus:border-amber-500 transition-all"
                             placeholder="+998906134666"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Google Maps Havolasi (URL)</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Google Maps Havolasi (URL)</label>
                           <input 
                             type="text" 
                             value={contacts?.google_maps || ""} 
                             onChange={(e) => setContacts((prev: any) => ({ ...prev, google_maps: e.target.value }))}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs font-mono text-black focus:outline-none focus:bg-sky-50 focus:border-amber-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs font-mono text-gray-900 focus:outline-none focus:bg-white focus:border-amber-500 transition-all"
                             placeholder="https://google.com/maps/..."
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[8px] text-black uppercase font-mono font-semibold mb-1">Yandex Maps Havolasi (URL)</label>
+                          <label className="block text-[8px] text-gray-500 uppercase font-mono font-semibold mb-1">Yandex Maps Havolasi (URL)</label>
                           <input 
                             type="text" 
                             value={contacts?.yandex_maps || ""} 
                             onChange={(e) => setContacts((prev: any) => ({ ...prev, yandex_maps: e.target.value }))}
-                            className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs font-mono text-black focus:outline-none focus:bg-sky-50 focus:border-amber-500 transition-all"
+                            className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs font-mono text-gray-900 focus:outline-none focus:bg-white focus:border-amber-500 transition-all"
                             placeholder="https://yandex.com/maps/..."
                           />
                         </div>
@@ -2275,10 +2275,10 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                     </div>
 
                     {/* Before & After Image Comparison Slider Editor */}
-                    <div className="p-6 rounded-2xl bg-sky-50 border border-sky-200 shadow-sm space-y-4">
-                      <div className="flex items-center gap-2 border-b border-sky-100 pb-3">
+                    <div className="p-6 rounded-2xl bg-white border border-[#E8EDF5] shadow-sm space-y-4">
+                      <div className="flex items-center gap-2 border-b border-[#EEF2F7] pb-3">
                         <Activity className="w-4 h-4 text-emerald-500" />
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold">
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold">
                           Oldin va Keyin Slider Rasmlari
                         </h4>
                       </div>
@@ -2286,8 +2286,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       <div className="grid grid-cols-2 gap-4">
                         {/* Before image upload */}
                         <div className="space-y-2">
-                          <label className="block text-[10px] text-black uppercase font-mono font-bold">Oldin (Before)</label>
-                          <div className="aspect-video w-full rounded-xl overflow-hidden border border-sky-200 relative bg-sky-50 group">
+                          <label className="block text-[10px] text-gray-500 uppercase font-mono font-bold">Oldin (Before)</label>
+                          <div className="aspect-video w-full rounded-xl overflow-hidden border border-[#E8EDF5] relative bg-white group">
                             <img src={beforeAfter.before} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                               <span className="text-[10px] text-white font-medium bg-black/60 px-2.5 py-1 rounded-full">Almashtirish</span>
@@ -2295,7 +2295,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                           </div>
                           
                           <label className="cursor-pointer block">
-                            <span className="w-full text-center py-2 rounded-xl bg-sky-100 hover:bg-slate-200 text-black text-xs font-bold block transition-all">
+                            <span className="w-full text-center py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-gray-900 text-xs font-bold block transition-all">
                               {uploadingId === "beforeafter-before" ? "Yuklanmoqda..." : "Rasm Yuklash (Oldin)"}
                             </span>
                             <input 
@@ -2310,8 +2310,8 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                         {/* After image upload */}
                         <div className="space-y-2">
-                          <label className="block text-[10px] text-black uppercase font-mono font-bold">Keyin (After)</label>
-                          <div className="aspect-video w-full rounded-xl overflow-hidden border border-sky-200 relative bg-sky-50 group">
+                          <label className="block text-[10px] text-gray-500 uppercase font-mono font-bold">Keyin (After)</label>
+                          <div className="aspect-video w-full rounded-xl overflow-hidden border border-[#E8EDF5] relative bg-white group">
                             <img src={beforeAfter.after} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                               <span className="text-[10px] text-white font-medium bg-black/60 px-2.5 py-1 rounded-full">Almashtirish</span>
@@ -2319,7 +2319,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                           </div>
                           
                           <label className="cursor-pointer block">
-                            <span className="w-full text-center py-2 rounded-xl bg-sky-100 hover:bg-slate-200 text-black text-xs font-bold block transition-all">
+                            <span className="w-full text-center py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-gray-900 text-xs font-bold block transition-all">
                               {uploadingId === "beforeafter-after" ? "Yuklanmoqda..." : "Rasm Yuklash (Keyin)"}
                             </span>
                             <input 
@@ -2333,7 +2333,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
                       </div>
 
-                      <div className="space-y-2 text-[10px] text-black">
+                      <div className="space-y-2 text-[10px] text-gray-500">
                         <p>💡 Ushbu rasmlar saytning Galereya qismi tepasidagi interaktiv suriluvchi solishtirish oynasida ko'rinadi.</p>
                       </div>
                     </div>
@@ -2342,13 +2342,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                     <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100/50 shadow-sm space-y-4">
                       <div className="flex items-center gap-2">
                         <Cloud className="w-4 h-4 text-blue-500 animate-bounce" />
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold">Mustaqil Rasm Yuklash Markazi</h4>
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold">Mustaqil Rasm Yuklash Markazi</h4>
                       </div>
-                      <p className="text-[11px] text-black leading-relaxed">
+                      <p className="text-[11px] text-gray-900 leading-relaxed">
                         Galereya yoki yangi xizmatlar uchun rasmni bu yerga yuklab, uning server manzilidan istalgan joyda foydalanishingiz mumkin:
                       </p>
 
-                      <div className="border border-dashed border-blue-200 rounded-xl p-4 bg-sky-50 text-center">
+                      <div className="border border-dashed border-blue-200 rounded-xl p-4 bg-white text-center">
                         <label className="cursor-pointer block">
                           <span className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold inline-block transition-all shadow-md">
                             Kompuyuterdan fayl tanlash
@@ -2382,7 +2382,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             }}
                           />
                         </label>
-                        <span className="text-[10px] text-black block mt-2">Formatlar: JPG, PNG, WEBP (Maks 10MB)</span>
+                        <span className="text-[10px] text-gray-500 block mt-2">Formatlar: JPG, PNG, WEBP (Maks 10MB)</span>
                       </div>
                     </div>
 
@@ -2397,34 +2397,34 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
               <div className="space-y-6">
                 
                 {/* Telegram Bot Setup Bar */}
-                <div className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 space-y-4">
+                <div className="p-5 rounded-2xl bg-white/40 border border-[#E8EDF5] space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold flex items-center gap-2">
-                      <Send className="w-4 h-4 text-cyan-400" />
+                    <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold flex items-center gap-2">
+                      <Send className="w-4 h-4 text-cyan-600" />
                       <span>Telegram Bot va Kanal Xabarnomalari</span>
                     </h4>
-                    <span className="text-[10px] text-black font-mono">Bemor xabarlari, qabullar va xavflar botga boradi</span>
+                    <span className="text-[10px] text-gray-500 font-mono">Bemor xabarlari, qabullar va xavflar botga boradi</span>
                   </div>
 
                   <form onSubmit={handleSaveTelegramConfig} className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                     <div className="md:col-span-2">
-                      <label className="block text-[9px] text-black uppercase font-mono mb-1">Telegram Bot Token</label>
+                      <label className="block text-[9px] text-gray-500 uppercase font-mono mb-1">Telegram Bot Token</label>
                       <input 
                         type="password" 
                         value={telegramConfig.botToken}
                         onChange={(e) => setTelegramConfig(prev => ({ ...prev, botToken: e.target.value }))}
                         placeholder={telegramConfig.botToken ? "********" : "68231215:AAFlkX193..."} 
-                        className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none"
+                        className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-[9px] text-black uppercase font-mono mb-1">Telegram Chat ID / Account ID</label>
+                      <label className="block text-[9px] text-gray-500 uppercase font-mono mb-1">Telegram Chat ID / Account ID</label>
                       <input 
                         type="text" 
                         value={telegramConfig.chatId}
                         onChange={(e) => setTelegramConfig(prev => ({ ...prev, chatId: e.target.value }))}
                         placeholder="Masalan: 12458319" 
-                        className="w-full bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 text-xs text-black focus:outline-none"
+                        className="w-full bg-white border border-[#E8EDF5] rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none"
                       />
                     </div>
                     <div className="flex gap-2">
@@ -2437,7 +2437,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       <button 
                         type="button"
                         onClick={handleTestTelegram}
-                        className="px-3 py-2 rounded-lg bg-sky-100 hover:bg-sky-200 text-blue-700 font-bold text-xs border border-sky-300 transition-all"
+                        className="px-3 py-2 rounded-lg bg-blue-50 hover:bg-blue-50 text-blue-700 font-bold text-xs border border-[#D6E2F0] transition-all"
                       >
                         Test
                       </button>
@@ -2445,7 +2445,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   </form>
 
                   {tgMsg && (
-                    <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[11px]">
+                    <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 text-[11px]">
                       {tgMsg}
                     </div>
                   )}
@@ -2455,20 +2455,20 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[480px]">
                   
                   {/* Left Column: Sessions List (4 cols) */}
-                  <div className="lg:col-span-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col overflow-hidden">
-                    <div className="p-4 bg-sky-50 border-b border-sky-200 flex items-center justify-between">
-                      <span className="text-xs font-bold font-mono uppercase text-black">Aktiv Chat Seanslari</span>
+                  <div className="lg:col-span-4 rounded-2xl bg-white/40 border border-[#E8EDF5] flex flex-col overflow-hidden">
+                    <div className="p-4 bg-white border-b border-[#E8EDF5] flex items-center justify-between">
+                      <span className="text-xs font-bold font-mono uppercase text-gray-900">Aktiv Chat Seanslari</span>
                       <button 
                         onClick={fetchChatSessions}
-                        className="p-1 rounded bg-sky-50 hover:bg-sky-100 border border-sky-200 text-black hover:text-slate-900 transition-colors"
+                        className="p-1 rounded bg-white hover:bg-blue-50 border border-[#E8EDF5] text-gray-900 hover:text-slate-900 transition-colors"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto divide-y divide-sky-200/40">
+                    <div className="flex-1 overflow-y-auto divide-y divide-[#E8EDF5]/40">
                       {chatSessions.length === 0 ? (
-                        <div className="text-center py-12 text-black text-xs">Aktiv chat seanslari yo'q</div>
+                        <div className="text-center py-12 text-gray-900 text-xs">Aktiv chat seanslari yo'q</div>
                       ) : (
                         chatSessions.map((sess) => (
                           <div 
@@ -2476,18 +2476,18 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             onClick={() => setSelectedSessionId(sess.id)}
                             className={`p-3.5 cursor-pointer flex items-center justify-between transition-colors ${
                               selectedSessionId === sess.id 
-                                ? 'bg-blue-600/10 border-l-4 border-blue-500' 
-                                : 'hover:bg-sky-100/20'
+                                ? 'bg-blue-600/10 border-l-4 border-blue-600' 
+                                : 'hover:bg-blue-50/20'
                             }`}
                           >
                             <div className="flex-1 min-w-0 pr-2">
                               <div className="flex items-center justify-between mb-1">
-                                <span className="font-semibold text-xs text-black truncate">{sess.name}</span>
-                                <span className="text-[9px] text-black font-mono">
+                                <span className="font-semibold text-xs text-gray-900 truncate">{sess.name}</span>
+                                <span className="text-[9px] text-gray-500 font-mono">
                                   {sess.lastUpdated ? new Date(sess.lastUpdated).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
                                 </span>
                               </div>
-                              <p className="text-[11px] text-black truncate">
+                              <p className="text-[11px] text-gray-900 truncate">
                                 {sess.messages?.[sess.messages.length - 1]?.text || "Bo'sh chat..."}
                               </p>
                             </div>
@@ -2502,23 +2502,23 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   </div>
 
                   {/* Right Column: Chat Dialog Screen (8 cols) */}
-                  <div className="lg:col-span-8 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col overflow-hidden">
+                  <div className="lg:col-span-8 rounded-2xl bg-white/40 border border-[#E8EDF5] flex flex-col overflow-hidden">
                     {selectedSessionId && activeSession ? (
                       <>
                         {/* Selected Header */}
-                        <div className="p-4 bg-sky-50 border-b border-sky-200 flex items-center justify-between">
+                        <div className="p-4 bg-white border-b border-[#E8EDF5] flex items-center justify-between">
                           <div>
-                            <span className="block font-bold text-xs text-black">{activeSession.name}</span>
-                            <span className="text-[9px] text-black font-mono">Seans ID: {activeSession.id}</span>
+                            <span className="block font-bold text-xs text-gray-900">{activeSession.name}</span>
+                            <span className="text-[9px] text-gray-500 font-mono">Seans ID: {activeSession.id}</span>
                           </div>
-                          <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                          <span className="text-[10px] text-emerald-600 flex items-center gap-1">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                             <span>Mijoz Online</span>
                           </span>
                         </div>
 
                         {/* Dialogue Stream */}
-                        <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-sky-50/10">
+                        <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-white/10">
                           {activeSession.messages?.map((m: any, i: number) => (
                             <div 
                               key={i}
@@ -2527,12 +2527,12 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                               <div className="flex flex-col">
                                 <div className={`px-3 py-2 rounded-2xl text-xs leading-relaxed ${
                                   m.role === 'user' 
-                                    ? 'bg-sky-50 border border-sky-200 text-black rounded-tl-sm'
+                                    ? 'bg-white border border-[#E8EDF5] text-gray-900 rounded-tl-sm'
                                     : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-tr-sm'
                                 }`}>
                                   {m.text}
                                 </div>
-                                <span className="text-[8px] text-black mt-1 self-end font-mono">
+                                <span className="text-[8px] text-gray-500 mt-1 self-end font-mono">
                                   {m.timestamp ? new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
                                 </span>
                               </div>
@@ -2542,13 +2542,13 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </div>
 
                         {/* Response Input */}
-                        <form onSubmit={handleSendAdminReply} className="p-3 bg-sky-50 border-t border-sky-200 flex gap-2">
+                        <form onSubmit={handleSendAdminReply} className="p-3 bg-white border-t border-[#E8EDF5] flex gap-2">
                           <input 
                             type="text" 
                             value={adminReplyText}
                             onChange={(e) => setAdminReplyText(e.target.value)}
                             placeholder="Mijozga javob yozing... (TG bot xabar beradi)"
-                            className="flex-1 bg-sky-50 border border-sky-200 rounded-xl px-4 py-2.5 text-xs text-black placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                            className="flex-1 bg-white border border-[#E8EDF5] rounded-xl px-4 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-600"
                           />
                           <button 
                             type="submit"
@@ -2561,10 +2561,10 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         </form>
                       </>
                     ) : (
-                      <div className="flex-1 flex flex-col items-center justify-center text-black p-8 text-center space-y-2">
-                        <MessageSquare className="w-10 h-10 text-black animate-bounce" />
+                      <div className="flex-1 flex flex-col items-center justify-center text-gray-900 p-8 text-center space-y-2">
+                        <MessageSquare className="w-10 h-10 text-gray-900 animate-bounce" />
                         <span className="text-xs font-bold">Muloqotni Boshlash</span>
-                        <p className="text-[11px] text-black max-w-xs">Xabarlarga real-vaqtda javob berish va o'qish uchun chap tarafdan chat seansini tanlang.</p>
+                        <p className="text-[11px] text-gray-900 max-w-xs">Xabarlarga real-vaqtda javob berish va o'qish uchun chap tarafdan chat seansini tanlang.</p>
                       </div>
                     )}
                   </div>
@@ -2580,33 +2580,33 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 
                 {/* Visual Security Alerts Box */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
+                  <div className="p-4 rounded-2xl bg-white/40 border border-[#E8EDF5] flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-blue-50 text-blue-700">
                       <Shield className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase tracking-wider font-mono text-black">Shield Protection</span>
-                      <span className="text-xs font-bold text-black">Express Firewall Active</span>
+                      <span className="block text-[9px] uppercase tracking-wider font-mono text-gray-500">Shield Protection</span>
+                      <span className="text-xs font-bold text-gray-900">Express Firewall Active</span>
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
+                  <div className="p-4 rounded-2xl bg-white/40 border border-[#E8EDF5] flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600">
                       <Lock className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase tracking-wider font-mono text-black">Security Certificate</span>
-                      <span className="text-xs font-bold text-emerald-400">HTTPS Enforced 100%</span>
+                      <span className="block text-[9px] uppercase tracking-wider font-mono text-gray-500">Security Certificate</span>
+                      <span className="text-xs font-bold text-emerald-600">HTTPS Enforced 100%</span>
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-sky-50/40 border border-sky-200 flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400">
+                  <div className="p-4 rounded-2xl bg-white/40 border border-[#E8EDF5] flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600">
                       <Activity className="w-5 h-5 animate-pulse" />
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase tracking-wider font-mono text-black">Security Threats</span>
-                      <span className="text-xs font-bold text-black">0 Hazards Detected</span>
+                      <span className="block text-[9px] uppercase tracking-wider font-mono text-gray-500">Security Threats</span>
+                      <span className="text-xs font-bold text-gray-900">0 Hazards Detected</span>
                     </div>
                   </div>
                 </div>
@@ -2617,29 +2617,29 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   <div className="lg:col-span-5 space-y-6">
                     
                     {/* Diagnostic Audit Control Panel */}
-                    <div className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 space-y-5">
+                    <div className="p-5 rounded-2xl bg-white/40 border border-[#E8EDF5] space-y-5">
                       <div>
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold flex items-center gap-1.5">
-                          <Terminal className="w-4 h-4 text-blue-400" />
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold flex items-center gap-1.5">
+                          <Terminal className="w-4 h-4 text-blue-700" />
                           <span>Tizim Port Security Audit (Nmap Scan)</span>
                         </h4>
-                        <p className="text-[11px] text-black mt-1 leading-relaxed">
+                        <p className="text-[11px] text-gray-900 mt-1 leading-relaxed">
                           Server tarmoq portlarini diagnostika qilish va uning faol xizmat ulanishlarini tekshirish uchun skanerni ishga tushiring.
                         </p>
                       </div>
 
-                      <div className="space-y-2 border-t border-sky-200 pt-3 text-xs">
+                      <div className="space-y-2 border-t border-[#E8EDF5] pt-3 text-xs">
                         <div className="flex justify-between">
-                          <span className="text-black font-mono">So'nggi Skanerlash:</span>
-                          <span className="text-black font-bold font-mono">{securityState.lastScanTime}</span>
+                          <span className="text-gray-900 font-mono">So'nggi Skanerlash:</span>
+                          <span className="text-gray-900 font-bold font-mono">{securityState.lastScanTime}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-black font-mono">Xavf Darajasi:</span>
-                          <span className="text-emerald-400 font-black font-mono">LOW (PAST RISK)</span>
+                          <span className="text-gray-900 font-mono">Xavf Darajasi:</span>
+                          <span className="text-emerald-600 font-black font-mono">LOW (PAST RISK)</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-black font-mono">Ochiq Portlar:</span>
-                          <span className="text-black font-mono">{securityState.openPorts?.join(", ") || "Faqat Port 3000"}</span>
+                          <span className="text-gray-900 font-mono">Ochiq Portlar:</span>
+                          <span className="text-gray-900 font-mono">{securityState.openPorts?.join(", ") || "Faqat Port 3000"}</span>
                         </div>
                       </div>
 
@@ -2655,34 +2655,34 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
 
                         <button 
                           onClick={handleCloseDangerousPorts}
-                          className="w-full py-2.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-black font-bold text-xs border border-sky-300 transition-all flex items-center justify-center gap-2"
+                          className="w-full py-2.5 rounded-xl bg-blue-50 hover:bg-blue-50 text-gray-900 font-bold text-xs border border-[#D6E2F0] transition-all flex items-center justify-center gap-2"
                         >
-                          <Lock className="w-4 h-4 text-emerald-400" />
+                          <Lock className="w-4 h-4 text-emerald-600" />
                           <span>Havfli ochiq portlarni yopish</span>
                         </button>
                       </div>
                     </div>
 
                     {/* Auto-renew Certificates Controls */}
-                    <div className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 space-y-5">
+                    <div className="p-5 rounded-2xl bg-white/40 border border-[#E8EDF5] space-y-5">
                       <div>
-                        <h4 className="text-xs uppercase font-mono tracking-wider text-black font-bold flex items-center gap-1.5">
-                          <Key className="w-4 h-4 text-cyan-400" />
+                        <h4 className="text-xs uppercase font-mono tracking-wider text-gray-900 font-bold flex items-center gap-1.5">
+                          <Key className="w-4 h-4 text-cyan-600" />
                           <span>Sertifikatlarni Avtomatik Yangilash</span>
                         </h4>
-                        <p className="text-[11px] text-black mt-1 leading-relaxed">
+                        <p className="text-[11px] text-gray-900 mt-1 leading-relaxed">
                           Site xavfsizlik kalitlari, Let's Encrypt Wildcard SSL sertifikatlari va JWT shifrlash tokenlarini bir tugma bilan yangilang.
                         </p>
                       </div>
 
                       <div className="space-y-3">
                         {securityState.certificates?.map((cert: any) => (
-                          <div key={cert.id} className="p-2.5 rounded-xl bg-sky-50 border border-sky-200 text-xs flex items-center justify-between">
+                          <div key={cert.id} className="p-2.5 rounded-xl bg-white border border-[#E8EDF5] text-xs flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                              <span className="font-semibold text-black">{cert.name}</span>
+                              <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                              <span className="font-semibold text-gray-900">{cert.name}</span>
                             </div>
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">{cert.expiry}</span>
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-100">{cert.expiry}</span>
                           </div>
                         ))}
                       </div>
@@ -2700,24 +2700,24 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   </div>
 
                   {/* Right Real-time Secure Terminal Column (7 cols) */}
-                  <div className="lg:col-span-7 flex flex-col rounded-2xl bg-sky-50 border border-sky-200 overflow-hidden h-[460px]">
-                    <div className="px-4 py-3 bg-sky-50 border-b border-sky-200 flex items-center justify-between">
+                  <div className="lg:col-span-7 flex flex-col rounded-2xl bg-white border border-[#E8EDF5] overflow-hidden h-[460px]">
+                    <div className="px-4 py-3 bg-white border-b border-[#E8EDF5] flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                        <span className="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                        <span className="text-xs font-mono text-black ml-2">secure_admin_diagnostic.sh</span>
+                        <span className="text-xs font-mono text-gray-900 ml-2">secure_admin_diagnostic.sh</span>
                       </div>
-                      <span className="text-[10px] text-black font-mono">Express Tunnel v2.5</span>
+                      <span className="text-[10px] text-gray-500 font-mono">Express Tunnel v2.5</span>
                     </div>
 
                     {/* Console log outputs */}
-                    <div className="flex-1 p-4 overflow-y-auto bg-sky-50/80 font-mono text-xs text-emerald-400 space-y-2">
+                    <div className="flex-1 p-4 overflow-y-auto bg-white/80 font-mono text-xs text-emerald-600 space-y-2">
                       {securityLogs.length === 0 ? (
-                        <div className="text-black flex flex-col items-center justify-center h-full text-center space-y-2">
-                          <Terminal className="w-8 h-8 text-black" />
+                        <div className="text-gray-900 flex flex-col items-center justify-center h-full text-center space-y-2">
+                          <Terminal className="w-8 h-8 text-gray-900" />
                           <span>Xavfsizlik audit jurnali bo'sh</span>
-                          <p className="text-[10px] text-black max-w-xs">Nmap Audit skaneri yoki avtomatik sertifikat yangilashni ishga tushirganingizda, bu yerda real-vaqt diagnostic ma'lumotlari chiqadi.</p>
+                          <p className="text-[10px] text-gray-500 max-w-xs">Nmap Audit skaneri yoki avtomatik sertifikat yangilashni ishga tushirganingizda, bu yerda real-vaqt diagnostic ma'lumotlari chiqadi.</p>
                         </div>
                       ) : (
                         securityLogs.map((log, i) => (
@@ -2738,29 +2738,29 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
             {/* 5. REVIEWS MODERATION */}
             {activeTab === 'reviews' && (
               <div className="space-y-4">
-                <h3 className="text-sm font-bold text-black font-display">Bemorlar fikr-mulohazalarini moderatsiya qilish</h3>
+                <h3 className="text-sm font-bold text-gray-900 font-display">Bemorlar fikr-mulohazalarini moderatsiya qilish</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {reviews.map((rev) => (
-                    <div key={rev.id} className="p-5 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col justify-between">
+                    <div key={rev.id} className="p-5 rounded-2xl bg-white/40 border border-[#E8EDF5] flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-semibold text-black">{rev.name}</span>
-                          <span className="text-xs font-mono text-black">{rev.date}</span>
+                          <span className="font-semibold text-gray-900">{rev.name}</span>
+                          <span className="text-xs font-mono text-gray-900">{rev.date}</span>
                         </div>
                         <div className="flex items-center gap-1 mb-3 text-amber-500">
                           {Array.from({ length: rev.rating }).map((_, i) => (
                             <span key={i}>★</span>
                           ))}
                         </div>
-                        <p className="text-sm text-black italic">"{rev.text}"</p>
+                        <p className="text-sm text-gray-900 italic">"{rev.text}"</p>
 
                         {rev.reply && (
-                          <div className="mt-3 pl-3 border-l-2 border-sky-500 bg-sky-500/5 rounded-r-lg py-2 px-3">
-                            <span className="block text-[10px] font-bold text-sky-400 uppercase tracking-wide mb-1">
+                          <div className="mt-3 pl-3 border-l-2 border-blue-600 bg-blue-50 rounded-r-lg py-2 px-3">
+                            <span className="block text-[10px] font-bold text-blue-600 uppercase tracking-wide mb-1">
                               Sizning javobingiz
                             </span>
-                            <p className="text-xs text-black">{rev.reply}</p>
+                            <p className="text-xs text-gray-900">{rev.reply}</p>
                           </div>
                         )}
 
@@ -2771,19 +2771,19 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             onChange={(e) => setReviewReplyDrafts(prev => ({ ...prev, [rev.id]: e.target.value }))}
                             onKeyDown={(e) => { if (e.key === 'Enter') sendReviewReply(rev.id); }}
                             placeholder={rev.reply ? "Javobni yangilash..." : "Javob yozish..."}
-                            className="flex-1 bg-sky-50 border border-sky-200 focus:border-sky-500 rounded-lg px-3 py-1.5 text-xs text-black placeholder:text-black focus:outline-none"
+                            className="flex-1 bg-white border border-[#E8EDF5] focus:border-blue-600 rounded-lg px-3 py-1.5 text-xs text-gray-900 placeholder:text-gray-900 focus:outline-none"
                           />
                           <button
                             onClick={() => sendReviewReply(rev.id)}
-                            className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-colors cursor-pointer"
+                            className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer"
                           >
                             Yuborish
                           </button>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-sky-200/50">
-                        <span className="text-xs text-emerald-400 flex items-center gap-1">
+                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#E8EDF5]/50">
+                        <span className="text-xs text-emerald-600 flex items-center gap-1">
                           <Check className="w-3.5 h-3.5" /> Chop etilgan (Published)
                         </span>
                         <button
@@ -2795,7 +2795,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             }
                             setReviews(prev => prev.filter(r => r.id !== rev.id));
                           }}
-                          className="text-xs text-black hover:text-rose-400 transition-colors flex items-center gap-1 cursor-pointer"
+                          className="text-xs text-gray-900 hover:text-red-500 transition-colors flex items-center gap-1 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" /> O'chirish
                         </button>
@@ -2812,11 +2812,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   
                   {/* Chart Block */}
-                  <div className="md:col-span-2 p-6 rounded-2xl bg-sky-50/40 border border-sky-200">
+                  <div className="md:col-span-2 p-6 rounded-2xl bg-white/40 border border-[#E8EDF5]">
                     <div className="flex items-center justify-between mb-6">
                       <div>
-                        <h4 className="text-sm font-semibold text-black">Klinika Tashriflar Grafigi</h4>
-                        <p className="text-xs text-black">Oylik muvaffaqiyatli qabul arizalari tahlili</p>
+                        <h4 className="text-sm font-semibold text-gray-900">Klinika Tashriflar Grafigi</h4>
+                        <p className="text-xs text-gray-900">Oylik muvaffaqiyatli qabul arizalari tahlili</p>
                       </div>
                       {(() => {
                         // Real month-over-month growth from server analytics
@@ -2825,7 +2825,7 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                         const prev = m[m.length - 2]?.appointments || 0;
                         const growth = prev > 0 ? Math.round(((cur - prev) / prev) * 100) : 0;
                         return (
-                          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs ${growth >= 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+                          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs ${growth >= 0 ? 'bg-emerald-500/10 text-emerald-600' : 'bg-red-500/10 text-red-500'}`}>
                             <TrendingUp className="w-3.5 h-3.5" />
                             <span>{growth >= 0 ? '+' : ''}{growth}%</span>
                           </div>
@@ -2856,22 +2856,22 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                   </div>
 
                   {/* Financial Summary */}
-                  <div className="p-6 rounded-2xl bg-sky-50/40 border border-sky-200 flex flex-col justify-between">
+                  <div className="p-6 rounded-2xl bg-white/40 border border-[#E8EDF5] flex flex-col justify-between">
                     <div>
-                      <h4 className="text-sm font-semibold text-black mb-4 font-display">Qabullar Hisoboti (Real)</h4>
+                      <h4 className="text-sm font-semibold text-gray-900 mb-4 font-display">Qabullar Hisoboti (Real)</h4>
                       <div className="space-y-4">
                         <div>
-                          <span className="text-xs text-black block uppercase font-mono">Tasdiqlangan qabullar</span>
-                          <div className="text-2xl font-black text-black flex items-center gap-1 mt-1 font-display">
+                          <span className="text-xs text-gray-900 block uppercase font-mono">Tasdiqlangan qabullar</span>
+                          <div className="text-2xl font-black text-gray-900 flex items-center gap-1 mt-1 font-display">
                             <Check className="w-6 h-6 text-emerald-500" />
                             <span>{analytics.approved}</span>
-                            <span className="text-xs text-black font-normal ml-1">/ {analytics.total} ta ariza</span>
+                            <span className="text-xs text-gray-900 font-normal ml-1">/ {analytics.total} ta ariza</span>
                           </div>
                         </div>
 
-                        <div className="pt-4 border-t border-sky-200/80">
-                          <span className="text-xs text-black block uppercase font-mono">Eng ko'p tanlangan shifokor</span>
-                          <div className="text-sm font-semibold text-black mt-1">
+                        <div className="pt-4 border-t border-[#E8EDF5]/80">
+                          <span className="text-xs text-gray-900 block uppercase font-mono">Eng ko'p tanlangan shifokor</span>
+                          <div className="text-sm font-semibold text-gray-900 mt-1">
                             {(() => {
                               const counts: Record<string, number> = {};
                               appointments.forEach((a) => { if (a.doctor) counts[a.doctor] = (counts[a.doctor] || 0) + 1; });
@@ -2883,11 +2883,11 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-sky-200/80">
-                      <span className="text-[10px] text-black uppercase font-mono block">Ma'lumotlar bazasi holati</span>
+                    <div className="pt-4 border-t border-[#E8EDF5]/80">
+                      <span className="text-[10px] text-gray-500 uppercase font-mono block">Ma'lumotlar bazasi holati</span>
                       <div className="flex items-center gap-2 mt-2">
                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span className="text-xs font-semibold text-emerald-400">Doimiy Sinxronlangan</span>
+                        <span className="text-xs font-semibold text-emerald-600">Doimiy Sinxronlangan</span>
                       </div>
                     </div>
                   </div>
