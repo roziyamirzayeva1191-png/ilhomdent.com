@@ -537,6 +537,86 @@ async function startServer() {
   }
   app.use(floodGuard);
 
+  // ---------- Shubhali (suspicious) faoliyat: recon/skanerlashni bloklash ----------
+  // Botlar ko'pincha WordPress, PHP, .env, .git, admin panel kabi UMUMAN
+  // MAVJUD BO'LMAGAN yo'llarni "sinab ko'radi" — bu doim hujum tayyorgarligi
+  // (recon) belgisi, chunki haqiqiy foydalanuvchi bu yo'llarga hech qachon
+  // so'rov yubormaydi. Shu yo'llardan BIRINI so'rasa ham, IP darhol (birinchi
+  // urinishdayoq) 15 daqiqaga bloklanadi.
+  const SUSPICIOUS_PATH_PATTERNS: RegExp[] = [
+    /wp-(login|admin|content|includes|json)/i,
+    /xmlrpc\.php/i,
+    /\.env(\.|$)/i,
+    /\.git\//i,
+    /phpmyadmin/i,
+    /config\.php/i,
+    /\.aws\//i,
+    /id_rsa/i,
+    /actuator/i,
+    /\.well-known\/security\.txt$/i, // ruxsat etilgan; pastda alohida o'tkaziladi
+    /\bunion\s+select\b/i,
+    /<script[\s>]/i,
+    /\.\.\/\.\.\//, // path traversal urinishi
+  ];
+  // security.txt haqiqiy, zararsiz so'rov — istisno sifatida ruxsat beramiz.
+  function isAllowedException(p: string): boolean {
+    return /\.well-known\/security\.txt$/i.test(p);
+  }
+
+  function suspiciousActivityGuard(req: Request, res: Response, next: NextFunction) {
+    const target = `${req.path}?${req.url.split("?")[1] || ""}`;
+    if (isAllowedException(req.path)) return next();
+    const isSuspicious = SUSPICIOUS_PATH_PATTERNS.some((re) => re.test(target));
+    if (isSuspicious) {
+      const ip = req.ip || req.socket.remoteAddress || "unknown";
+      floodBannedIps.set(ip, Date.now() + FLOOD_BAN_MS);
+      logLine(
+        "error",
+        `[SUSPICIOUS-GUARD] IP avtomatik bloklandi (recon/skanerlash shubhasi): ip=${ip} path=${req.path}`
+      );
+      notifyTelegram(
+        `🕵️ <b>Shubhali faoliyat aniqlandi va bloklandi</b>\n\n📡 IP: <code>${ip}</code>\n🔎 So'ralgan yo'l: <code>${escapeHtml(
+          req.path
+        )}</code>\n⏱ Blok muddati: 15 daqiqa`
+      );
+      return res.status(404).json({ error: "Topilmadi." });
+    }
+    next();
+  }
+  app.use(suspiciousActivityGuard);
+
+  // ---------- Shubhali (suspicious) faoliyat: ortiqcha 404 (skanerlash xatti-harakati) ----------
+  // Oddiy foydalanuvchi deyarli hech qachon 404 olmaydi. Agar bitta IP qisqa
+  // vaqt ichida ko'p 404 hosil qilsa (masalan turli yo'llarni "urinib
+  // ko'rish"), bu ham skanerlash belgisi — IP avtomatik bloklanadi.
+  const NOT_FOUND_WINDOW_MS = 60 * 1000; // 1 daqiqalik oyna
+  const NOT_FOUND_THRESHOLD = 20; // shu oyna ichida ruxsat etilgan maksimal 404
+  const notFoundTimestamps = new Map<string, number[]>();
+
+  function trackNotFound(ip: string) {
+    const now = Date.now();
+    let timestamps = notFoundTimestamps.get(ip);
+    if (!timestamps) {
+      timestamps = [];
+      notFoundTimestamps.set(ip, timestamps);
+    }
+    timestamps.push(now);
+    while (timestamps.length && timestamps[0] < now - NOT_FOUND_WINDOW_MS) {
+      timestamps.shift();
+    }
+    if (timestamps.length > NOT_FOUND_THRESHOLD) {
+      floodBannedIps.set(ip, now + FLOOD_BAN_MS);
+      notFoundTimestamps.delete(ip);
+      logLine(
+        "error",
+        `[SUSPICIOUS-GUARD] IP avtomatik bloklandi (ortiqcha 404 — skanerlash shubhasi): ip=${ip} 1 daqiqada ${timestamps.length}+ marta 404`
+      );
+      notifyTelegram(
+        `🕵️ <b>Skanerlash shubhasi aniqlandi va bloklandi</b>\n\n📡 IP: <code>${ip}</code>\n🔎 1 daqiqada ${timestamps.length}+ marta "topilmadi" (404)\n⏱ Blok muddati: 15 daqiqa`
+      );
+    }
+  }
+
   // Xotirani tozalab turish — faol bo'lmagan IP yozuvlari va muddati
   // o'tgan bloklarni olib tashlaydi (memory leak oldini olish uchun).
   setInterval(() => {
@@ -548,6 +628,11 @@ async function startServer() {
     }
     for (const [ip, until] of floodBannedIps.entries()) {
       if (now >= until) floodBannedIps.delete(ip);
+    }
+    for (const [ip, timestamps] of notFoundTimestamps.entries()) {
+      if (!timestamps.length || timestamps[timestamps.length - 1] < now - NOT_FOUND_WINDOW_MS * 2) {
+        notFoundTimestamps.delete(ip);
+      }
     }
   }, 5 * 60 * 1000).unref();
 
@@ -589,6 +674,9 @@ async function startServer() {
           res.statusCode >= 500 ? "error" : "info",
           `${req.method} ${req.path} ${res.statusCode} ${Date.now() - start}ms ip=${req.ip}`
         );
+      }
+      if (res.statusCode === 404) {
+        trackNotFound(req.ip || req.socket.remoteAddress || "unknown");
       }
     });
     next();
@@ -930,6 +1018,7 @@ async function startServer() {
       "[CHECK] Rate limiting: faol (login 10/15min, API 600/15min) [OK]",
       "[CHECK] Brute-force lockout: faol (5 xato -> 15 daqiqa blok) [OK]",
       "[CHECK] Flood/DDoS avtomatik blok: faol (1s ichida 100+ so'rov -> 15 daqiqa avtoblok) [OK]",
+      "[CHECK] Shubhali faoliyat (recon/skanerlash) avtomatik blok: faol (wp-login, .env, .git, SQLi/XSS urinishlari, ortiqcha 404 -> 15 daqiqa avtoblok) [OK]",
       `[CHECK] Hozirda bloklangan IP'lar: ${security.meta.floodBannedIpsCount} ta`,
       "[CHECK] Helmet security headers + CSP: faol [OK]",
       `[CHECK] Yuklangan fayllar: ${security.meta.uploadsCount} ta (faqat tekshirilgan rasmlar) [OK]`,
