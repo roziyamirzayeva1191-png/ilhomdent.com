@@ -25,9 +25,15 @@ RUN npm install --omit=dev --no-audit --no-fund && npm cache clean --force
 # Built artifacts: SPA + bundled server
 COPY --from=build /app/dist ./dist
 
-# Run as non-root user
-RUN addgroup -S app && adduser -S app -G app \
-  && mkdir -p data backups logs public/uploads \
+# Run as non-root user.
+# UID/GID qat'iy 10001 qilib belgilanadi (tasodifiy emas) — shunda VPS'da
+# host tomonidagi bind-mount papkalarni (./data, ./backups, ./logs,
+# ./uploads, ./deploy-signal) OLDINDAN shu UID'ga chown qilish mumkin.
+# Aks holda Docker ularni bo'sh bo'lsa root egaligida avtomatik yaratadi va
+# konteyner ichidagi non-root foydalanuvchi yoza olmay "permission denied"
+# xatosiga uchraydi — bu VPS'da eng ko'p uchraydigan muammolardan biri.
+RUN addgroup -g 10001 -S app && adduser -u 10001 -S app -G app \
+  && mkdir -p data backups logs public/uploads deploy-signal \
   && chown -R app:app /app
 USER app
 

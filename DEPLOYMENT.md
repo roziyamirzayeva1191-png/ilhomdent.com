@@ -52,19 +52,48 @@ APP_URL=https://drilhom.uz
 grep -rl "drilhom.uz" nginx.conf index.html public/ | xargs sed -i 's/drilhom\.uz/SIZNING-DOMEN.uz/g'
 ```
 
+**MUHIM — runtime papkalarni oldindan yarating va egalikni to'g'rilang.**
+Konteyner ichida ilova non-root foydalanuvchi (UID 10001) sifatida ishlaydi. Agar quyidagi papkalar
+mavjud bo'lmasa, Docker ularni birinchi `docker compose up` paytida avtomatik yaratadi — lekin ROOT
+egaligida, va shu sababli ilova ularga yoza olmay "permission denied" xatosi beradi (backup, log,
+yuklangan rasmlar va "Kodni yangilash" tugmasi ishlamay qoladi). Buning oldini olish uchun:
+```bash
+mkdir -p data backups logs uploads deploy-signal
+sudo chown -R 10001:10001 data backups logs uploads deploy-signal
+```
+Tekshirish:
+```bash
+ls -ln data backups logs uploads deploy-signal   # Uid=10001 bo'lishi kerak
+```
+
 ## 3. SSL sertifikat (Let's Encrypt / Certbot)
 
+> **Muhim:** `nginx.conf` (asosiy fayl) 443-portda SSL sertifikat fayllarini talab qiladi, lekin ular
+> Certbot birinchi marta ishlamaguncha mavjud emas — va Certbot'ga esa ACME challenge'ga javob
+> beradigan ishlayotgan Nginx kerak. Shu "tuxum-tovuq" muammosini oldini olish uchun avval
+> **HTTP-only bootstrap konfiguratsiya** ishlatiladi, sertifikat olingandan keyin asosiy
+> (HTTPS) konfiguratsiyaga almashtiriladi. Buni to'g'ridan-to'g'ri `nginx.conf`'ni ishlatib
+> qilsangiz, Nginx konfiguratsiya xatosi bilan darhol yiqiladi.
+
 ```bash
-# Avval faqat Nginx'ni ko'taring (ACME challenge uchun)
+# 1) Bootstrap (HTTP-only) konfiguratsiyani ishga tushiring — asosiy nginx.conf'ni
+#    vaqtincha chetga suramiz, ACME challenge uchun bootstrap versiyani qo'yamiz
+cp nginx.conf nginx.conf.full.bak
+cp nginx.bootstrap.conf nginx.conf
 docker compose up -d nginx
 
-# Sertifikat oling (email va domenni almashtiring)
+# 2) Sertifikat oling (email va domenni almashtiring)
 docker compose run --rm certbot certonly --webroot -w /var/www/certbot \
   -d drilhom.uz -d www.drilhom.uz --email siz@example.com --agree-tos --no-eff-email
+
+# 3) Asosiy (HTTPS) konfiguratsiyani qaytaring va Nginx'ni qayta ishga tushiring
+cp nginx.conf.full.bak nginx.conf
+docker compose restart nginx
 ```
 Tekshirish:
 ```bash
 ls certbot/conf/live/drilhom.uz/    # fullchain.pem, privkey.pem bo'lishi kerak
+docker compose logs nginx --tail 20  # xato bo'lmasligi kerak
 ```
 
 ## 4. To'liq ishga tushirish
@@ -184,6 +213,7 @@ Log'da `git pull` va `docker compose up -d --build` natijalari ko'rinishi kerak,
 - [ ] Backup'dan tiklash bir marta sinovdan o'tdi
 - [ ] `.env` va `data/`, `backups/` git'ga tushmagan (`.gitignore`da bor)
 - [ ] `deploy-watcher.sh` uchun cron sozlangan, admin paneldagi "Yangilash" tugmasi sinovdan o'tdi
+- [ ] `data/`, `backups/`, `logs/`, `uploads/`, `deploy-signal/` papkalari UID 10001'ga chown qilingan (2-bosqich)
 
 Barcha bandlar bajarilsa — loyiha **production'ga to'liq tayyor**.
 

@@ -19,3 +19,6 @@ site_data_store.json.imported.bak
 
 # Xavfsiz deploy-signal papkasi (runtime signal fayllar, kodga tegishli emas)
 deploy-signal/
+
+# SSL bootstrap paytida yaratiladigan vaqtinchalik zaxira (DEPLOYMENT.md, 3-bosqich)
+nginx.conf.full.bak
