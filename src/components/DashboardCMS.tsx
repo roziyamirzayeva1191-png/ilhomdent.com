@@ -903,6 +903,30 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
     }
   };
 
+  const handleAddCertificate = (doctorId: string) => {
+    setDoctors((prev) => prev.map(d =>
+      d.id === doctorId ? { ...d, certificates: [...(d.certificates || []), "Yangi sertifikat / malaka"] } : d
+    ));
+  };
+
+  const handleUpdateCertificate = (doctorId: string, index: number, value: string) => {
+    setDoctors((prev) => prev.map(d => {
+      if (d.id !== doctorId) return d;
+      const next = [...(d.certificates || [])];
+      next[index] = value;
+      return { ...d, certificates: next };
+    }));
+  };
+
+  const handleRemoveCertificate = (doctorId: string, index: number) => {
+    setDoctors((prev) => prev.map(d => {
+      if (d.id !== doctorId) return d;
+      const next = [...(d.certificates || [])];
+      next.splice(index, 1);
+      return { ...d, certificates: next };
+    }));
+  };
+
   const activeSession = chatSessions.find(s => s.id === selectedSessionId);
 
   if (!isOpen) return null;
@@ -1601,12 +1625,53 @@ export default function DashboardCMS({ language, isOpen, onClose, onRefreshSiteD
                             
                             <div>
                               <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold">Rasm URL manzili</label>
-                              <input 
-                                type="text" 
-                                value={doc.image} 
+                              <input
+                                type="text"
+                                value={doc.image}
                                 onChange={(e) => setDoctors(prev => prev.map(d => d.id === doc.id ? { ...d, image: e.target.value } : d))}
                                 className="w-full bg-white border border-[#D6E2F0] rounded-lg px-2.5 py-1.5 text-[10px] text-gray-500 focus:outline-none font-mono"
                               />
+                            </div>
+
+                            {/* Certificates / Qualifications manager */}
+                            <div className="pt-2 border-t border-[#EEF2F7] space-y-2">
+                              <div className="flex items-center justify-between">
+                                <label className="text-[8px] text-gray-500 block uppercase font-mono font-semibold">
+                                  Sertifikatlar va malakalar ({(doc.certificates || []).length})
+                                </label>
+                                <button
+                                  onClick={() => handleAddCertificate(doc.id)}
+                                  className="flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 text-[9px] font-bold transition-all cursor-pointer"
+                                >
+                                  <Plus className="w-3 h-3" />
+                                  <span>Sertifikat qo'shish</span>
+                                </button>
+                              </div>
+
+                              {(doc.certificates || []).length === 0 ? (
+                                <p className="text-[10px] text-gray-400 italic">Hozircha sertifikat qo'shilmagan.</p>
+                              ) : (
+                                <div className="space-y-1.5">
+                                  {(doc.certificates || []).map((cert, certIdx) => (
+                                    <div key={certIdx} className="flex items-center gap-1.5">
+                                      <input
+                                        type="text"
+                                        value={cert}
+                                        onChange={(e) => handleUpdateCertificate(doc.id, certIdx, e.target.value)}
+                                        placeholder="Masalan: International Implantology Diploma (Germany)"
+                                        className="flex-1 bg-white border border-[#D6E2F0] rounded-lg px-2.5 py-1.5 text-[11px] text-gray-900 focus:outline-none focus:border-blue-600"
+                                      />
+                                      <button
+                                        onClick={() => handleRemoveCertificate(doc.id, certIdx)}
+                                        className="p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer flex-shrink-0"
+                                        title="Sertifikatni o'chirish"
+                                      >
+                                        <Trash2 className="w-3 h-3" />
+                                      </button>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
                             </div>
                           </div>
                         ))}
